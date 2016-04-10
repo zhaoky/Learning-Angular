@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<h3>请在下列文本框中输入任意内容</h3>
+<div ng-controller="controller">
+	<ul>
+		<li ng-repeat="item in data">
+			<span>{{item.name}}</span>
+			<span>{{item.age}}</span>
+			<span>{{item.sex}}</span>
+			<span>{{item.score}}</span>
+		</li>
+	</ul>
+</div>
+<script>
+	angular.module("app",[])     //依赖其他模块的中括号必不可少！！
+			.controller("controller",function($scope){
+				$scope.data =[
+					{
+						name :"zky",
+						age  :"24",
+						sex  :"nan",
+						score:250
+					},
+					{
+						name :"zky",
+						age  :"24",
+						sex  :"nan",
+						score:250
+					},
+					{
+						name :"zky",
+						age  :"24",
+						sex  :"nan",
+						score:250
+					},
+					{
+						name :"zky",
+						age  :"24",
+						sex  :"nan",
+						score:250
+					},
+					{
+						name :"zky",
+						age  :"24",
+						sex  :"nan",
+						score:250
+					}
+				]
+			});
+</script>
+</body>
+</html>

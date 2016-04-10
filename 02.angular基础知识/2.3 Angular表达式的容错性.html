@@ -1,0 +1,27 @@
+<!--
+	angularJs 具有很好的容错性 {{tmp}} 都不报错
+	不能在表达式中加入循环判断语句，应该写在控制器里。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<span>{{tmp}}</span>
+	<button ng-click="error()">单击</button>
+</div>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.temp = "hello";
+				$scope.error = function(){
+					console.log(tmp);  //打印要报错
+				}
+			}]);
+</script>
+</body>
+</html>

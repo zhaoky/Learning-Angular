@@ -1,0 +1,56 @@
+<!--
+	添加元素样式的3种方式： ng-class
+		1.直接绑定值为css类别名的$scope属性
+		2.以字符串数组的方式选择性添加css类别名
+		3.通过定义key/value对象的方式添加多个CSS类别名(推荐)
+	ng-class-odd 奇数行
+	ng-class-even 偶数行
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+	<style>
+		.red{
+			color:red;
+		}
+		.blue{
+			color:blue;
+		}
+		.selected{
+			background: yellow;
+		}
+	</style>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<div ng-class="color1">第一种方式</div>
+	<div class="{{color1}}">第一种方式</div>
+	<div ng-class="{true:'red',false:'blue'}[color2]">第二种方式</div>
+	<div ng-class="{'red':color3_1,'blue':color3_2}">第三种方式</div>
+	<ul ng-init="number=[1,2,3,4,5,6,7]">
+		<li ng-repeat="item in number"
+			ng-class-even="'red'"
+			ng-class-odd="'blue'"
+		    ng-bind="item"
+		    ng-click="change($index)"
+		    ng-class="{'selected':selected==$index}"
+		></li>
+	</ul>
+</div>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.color1 = "red";
+				$scope.color2 = true;
+				$scope.color3_1 = false;
+				$scope.color3_2 = true;
+				$scope.change = function(index){
+					$scope.selected = index;
+				}
+			}]);
+</script>
+</body>
+</html>

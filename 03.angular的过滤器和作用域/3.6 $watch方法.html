@@ -1,0 +1,40 @@
+<!--
+	$scope对象：作用域对象
+	作用域能存储数据模型、为表达式提供上下文环境和监听表达式的变化并且传播事件。
+	作用域既是控制器与视图的桥梁，又是指令与视图的桥梁。
+	在自定义指令中，会调用$watch方法监听各个表达式的变化。
+	无论指令还是控制器，都是通过作用域与视图的DOM绑定：数据关系链： 控制器--》作用域--》视图   指令--》作用域--》视图
+	作用域特点：
+		1.提供$watch方法来监听数据模型的变化，双绑就是通过这个方法
+		2.提供$apply方法，为数据模型改变提供支撑。
+		3.为表达式提供了执行的环境。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<div>
+		<input type="text" ng-model="text">
+	</div>
+	<div>
+		{{count}}
+	</div>
+</div>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.text="";
+				$scope.count=0;
+				$scope.$watch("text",function(){    //$watch会执行$digest方法检测是否一致
+					$scope.count++;
+					console.log("改变了一下！");
+				});
+			}]);
+</script>
+</body>
+</html>

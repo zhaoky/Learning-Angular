@@ -1,0 +1,34 @@
+<!--
+	ng-show ng-hide
+	ng-switch  ng-switch-when ng-switch-default
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<div ng-show="isShow">第一句话</div>
+		<div ng-hide="isHide">第二句话</div>
+		<ul ng-switch="status">
+		<!--<ul ng-switch on="status">-->  <!--等价-->
+			<li ng-switch-when="1">第一排</li>
+			<li ng-switch-when="2">第二排</li>
+			<li ng-switch-when="3">第三排</li>
+			<li ng-switch-when="4">第四排</li>
+			<li ng-switch-default>第五排</li>  <!--都不匹配的时候就是他-->
+		</ul>
+	</div>
+	<script>
+		angular.module("app",[])
+				.controller("ctrl",["$scope",function($scope){
+					$scope.isShow = true;
+					$scope.isHide = false;
+					$scope.status = 3;
+				}]);
+	</script>
+</body>
+</html>

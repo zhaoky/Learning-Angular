@@ -1,0 +1,39 @@
+<!--
+	checkbox    ng-model:true false  每一个选项是一个ng-model
+	radio       ng-model:value   所有为同一个ng-model  必须要有value
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<form action="" name="myForm" ng-submit="save()" ng-controller="ctrl">
+	<div>
+		<input type="checkbox" ng-model="a" /> <!--ng-true-value="同意" ng-false-value="不同意"  前者表示选中的值，后者表示没选中的值-->
+	</div>
+	<div>
+		<input type="radio" ng-model="b" value="男">男
+		<input type="radio" ng-model="b" value="女">女
+	</div>
+	<div>
+		<input type="submit" value="提交">
+	</div>
+	<div>
+		{{c}}
+	</div>
+</form>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.a=false;
+				$scope.b = "男";
+				$scope.save = function(){
+					$scope.c = "你选择的是："+$scope.a +"和" +$scope.b;
+				}
+			}]);
+</script>
+</body>
+</html>

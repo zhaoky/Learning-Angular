@@ -1,0 +1,62 @@
+<!--
+	过滤器的功能：格式化数据表达式。
+		在页面模版视图、控制器、在服务中都可能使用过滤器，还可以自定义过滤器。
+	作用域（scope）：主要服务于页面模版，在控制器与页面中起桥梁作用，保存模版中的数据对象，为模版中的元素提供方法和属性。
+	过滤器3种调用方式：1.单个过滤器；2.多个过滤器|；3.带参数的过滤器:。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<ul>
+			<li>
+				<span ng-repeat="item in title">{{item}}</span>
+			</li>
+			<li ng-repeat="item in data|orderBy:'-score'|limitTo:3">
+				<span>{{$index+1}}</span>
+				<span>{{item.name}}</span>
+				<span>{{item.sex}}</span>
+				<span>{{item.age}}</span>
+				<span>{{item.score}}</span>
+			</li>
+		</ul>
+	</div>
+</body>
+<script>
+	angular.module("app",[])
+			.constant("title",["序号","姓名","性别","年龄","分数"])
+			.constant("data",[
+				{
+					name:"zky",
+					sex:"nan",
+					age:24,
+					score:100
+				},
+				{
+					name:"qxq",
+					sex:"nv",
+					age:22,
+					score:98
+				},{
+					name:"tr",
+					sex:"nan",
+					age:20,
+					score:80
+				},{
+					name:"lr",
+					sex:"nan",
+					age:28,
+					score:200
+				}
+			])
+			.controller("ctrl",["$scope","title","data",function($scope,title,data){
+				$scope.data = data;
+				$scope.title= title;
+			}]);
+</script>
+</html>

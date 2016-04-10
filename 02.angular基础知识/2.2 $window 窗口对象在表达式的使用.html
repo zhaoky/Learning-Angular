@@ -1,0 +1,26 @@
+<!--
+	在控制器中要调用全局对象window时，注入$window，可以防止与全局的window对象混淆。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<input type="text" ng-model="text" />
+		<button ng-click="show()">显示</button>
+	</div>
+	<script>
+		angular.module("app",[])
+				.controller("ctrl",["$scope","$window",function($scope,$window){
+					$scope.text = "23";
+					$scope.show = function(){
+						$window.alert("你输入的内容是："+$scope.text);
+					}
+				}]);
+	</script>
+</body>
+</html>

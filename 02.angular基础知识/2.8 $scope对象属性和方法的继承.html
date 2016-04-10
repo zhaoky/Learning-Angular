@@ -1,0 +1,32 @@
+<!--
+	处于子层控制器中的$scope对象将会自动继承父层控制器中$scope对象的属性和方法(由内向外)。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="fatherCtrl">
+		<div ng-controller="childCtrl">
+			<span>{{text}}</span>
+			<span>{{child_text}}</span>
+			<input type="button" value="继承" ng-click="show()">
+		</div>
+	</div>
+	<script>
+		angular.module("app",[])
+				.controller("fatherCtrl",["$scope",function($scope){
+					$scope.text = "hello!";
+					$scope.show = function(){
+						$scope.text = "父控制器的点击后文本";
+					}
+				}])
+				.controller("childCtrl",["$scope",function($scope){
+					$scope.child_text = "子控制器的原始文本";
+				}]);
+	</script>
+</body>
+</html>

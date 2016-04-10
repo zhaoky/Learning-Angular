@@ -1,0 +1,33 @@
+<!--
+	在模版系统中，可以包含angular的指令，数据绑定，表单控件和过滤器。
+	多个模版页面构成复杂系统，再用include的方式加载零散页面。
+	构建模版内容的3种方式：
+		1.直接在页面中添加元素和angular指令，依赖控制器中构建的属性和方式绑定模版中的元素内容和事件，实现应用需求。
+		2.通过“type”类型为"text/ng-template"的<script>元素来构建一个用于绑定数据的模版，在模版内部添加数据绑定和元素的事件。
+		3.通过ng-include指令，添加元素的src属性，导入一个外部文件作为绑定数据的模版。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<!--<div ng-include src="'tpl'" ng-controller="ctrl"></div>--> <!--或者-->
+	<div ng-include="'tpl'" ng-controller="ctrl"></div>   <!--ID号或文件名称--><!--!!!!!!ng-include属性值可以是字符串（加引号），也可以是$scope的属性名-->
+	<!--<div ng-include="'2.8 $scope对象属性和方法的继承.html'" ></div>-->
+	<script type="text/ng-template" id="tpl">   <!--加载模版不会发出HTTP请求-->
+		姓名：{{name}}<br/>
+		年龄：{{age}}
+	</script>
+	<script>
+		angular.module("app",[])
+				.controller("ctrl",["$scope",function($scope){
+					$scope.name = "zky";
+					$scope.age = 23;
+					$scope.text = "lalla";
+				}]);
+	</script>
+</body>
+</html>

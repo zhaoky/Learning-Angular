@@ -1,0 +1,62 @@
+<!--
+	两种方式实现作用域的通信：
+		1.服务 service
+		2.事件
+			$broadcast(name,data) 向下传播
+			$emit(name,data)   向上传播
+			$on(name,function(event,data){}) 接收
+				event带有：
+					targetScope 发起传播的作用域名称
+					currentScope 正在接收的作用域名称
+					name 该事件名称
+					preventDefault 阻止默认行为的函数
+					stopPropagation 阻止冒泡的函数
+					defaultPrevented 返回是否被阻止默认行为了
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="mainCtrl">
+		<div ng-controller="ctrl1">
+			<div ng-click="toP()">向父级传播</div>
+			<div ng-click="toC()">向子级传播</div>
+			<div ng-controller="childCtrl1"></div>
+		</div>
+		<div ng-controller="ctrl2"></div>
+	</div>
+	<script>
+		angular.module("app",[])
+				.controller("mainCtrl",["$scope",function($scope){
+					$scope.$on("data",function(event,data){
+						console.log("mainCtrl:",event,data);
+					})
+				}])
+				.controller("ctrl1",["$scope",function($scope){
+					$scope.toP = function(){
+						$scope.$emit("data","hello!");
+					};
+					$scope.toC = function(){
+						$scope.$broadcast("data","hello!");
+					};
+					$scope.$on("data",function(event,data){
+						console.log("ctrl1:",data);
+					})
+				}])
+				.controller("ctrl2",["$scope",function($scope){
+					$scope.$on("data",function(event,data){
+						console.log("ctrl2:",data);
+					})
+				}])
+				.controller("childCtrl1",["$scope",function($scope){
+					$scope.$on("data",function(event,data){
+						console.log("childCtrl1:",data);
+					})
+				}])
+	</script>
+</body>
+</html>

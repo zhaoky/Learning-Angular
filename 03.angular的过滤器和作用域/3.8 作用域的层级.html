@@ -1,0 +1,45 @@
+<!--
+	作用域的层级仅限于父级和之级
+	顶级作用域只有一个：$rootScope
+	子级作用域可以继承父级作用域的全部属性和方法，但同级子级作用域之间却不可以互相访问各自的属性和方法
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="mCtrl">
+	<ul ng-controller="childCtrl1">
+		<li>{{m_name}}{{c_name}}</li>
+		<li ng-repeat="item in data">
+			<span>{{item}}</span>
+		</li>
+	</ul>
+	<ul ng-controller="childCtrl2">
+		<li>{{m_name}}{{c_name}}</li>
+		<li ng-repeat="item in data">
+			<span>{{item}}</span>
+		</li>
+	</ul>
+</div>
+<script>
+	angular.module("app", [])
+			.controller("mCtrl", ["$scope","$rootScope", function ($scope,$rootScope) {
+				$scope.m_name = "我是父亲！";
+				$rootScope.m_name = "我是父亲的父亲！";   //$rootScope是ng-app作用域 顶级作用域
+			}])
+			.controller("childCtrl1", ["$scope", function ($scope) {
+				$scope.c_name = "我是儿子1！";
+//				$scope.m_name = "先选我！";
+				$scope.data = ["a", "b", "c", "d"];
+			}])
+			.controller("childCtrl2", ["$scope", function ($scope) {
+				$scope.c_name = "我是儿子2！";
+				$scope.data = ["A", "B", "C", "D"];
+			}])
+</script>
+</body>
+</html>

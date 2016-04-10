@@ -1,0 +1,69 @@
+<!--
+	ng-model的值就是select选中的值，双绑关系。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<form action="" ng-controller="ctrl">
+	<div>
+		<select ng-model="a" ng-options="item for item in data1">
+			<option value="">--请选择--</option>
+		</select>
+		<span>{{a}}</span>
+	</div>
+	<div>
+		<select ng-model="b" ng-options="item.name for item in data2">
+			<option value="">--请选择--</option>
+		</select>
+		<span>{{b}}</span>
+	</div>
+	<div>
+		<select ng-model="c" ng-options="item.id as item.name for item in data2">
+			<!--as ..for ..in 格式 as前面是value,即model绑定的值，选中时获取。as后面是显示的值-->
+			<option value="">--请选择--</option>
+		</select>
+		<span>{{c}}</span>
+	</div>
+	<div>
+		<select ng-model="d" ng-options="item.id as item.name group by item.key for item in data2">
+			<!--as ..group by ..for ..in 格式 -->
+			<option value="">--请选择--</option>
+		</select>
+		<span>{{d}}</span>
+	</div>
+</form>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.data1 = ["A","B","C","D"];
+				$scope.data2 = [
+					{
+						name : "赵",
+						id :1,
+						key:"aaa"
+					},
+					{
+						name : "钱",
+						id :2,
+						key:"aaa"
+					},
+					{
+						name : "孙",
+						id :3,
+						key:"bbb"
+					},
+					{
+						name : "李",
+						id :4,
+						key:"bbb"
+					}
+				];
+			}]);
+</script>
+</body>
+</html>

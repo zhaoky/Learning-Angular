@@ -1,0 +1,28 @@
+<!--
+	控制器借助作用域控制视图中元素的显示内容。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<div>
+		<input type="text" ng-model="text">
+	</div>
+	<div>
+		{{text}}
+	</div>
+</div>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope","$rootScope",function($scope,$rootScope){
+				$scope.text="";    //$scope对象通过注册的属性控制页面所需的数据类型，视图模版则通过双绑传递显示数据模型中的属性值
+				$rootScope.a = "zky";
+			}]);
+</script>
+</body>
+</html>

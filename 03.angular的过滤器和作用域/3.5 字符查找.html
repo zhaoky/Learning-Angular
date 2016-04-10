@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+	<style>
+
+		span{
+			display: inline-block;
+			width:100px;
+			height:50px;
+		}
+	</style>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<div>
+		<input type="text" ng-model="search" />
+	</div>
+	<ul>
+		<li>
+			<span ng-repeat="item in title">{{item.name}}</span>
+		</li>
+		<li ng-repeat="item in data | filter:{name:search}">  <!--两个参数 ，第一个是属性名，第二个是排序1降0升-->
+			<!--span不换行就不会有间隙-->
+			<span>{{$index+1}}</span><span>{{item.name}}</span><span>{{item.age}}</span><span>{{item.sex}}</span><span>{{item.score}}</span>
+		</li>
+	</ul>
+</div>
+<script>
+	angular.module("app",[])
+			.constant("title",[
+				{
+					name:"序号",
+					id:0
+				},
+				{
+					name:"名字",
+					id:"name"
+				},
+				{
+					name:"年龄",
+					id:"age"
+				},
+				{
+					name:"性别",
+					id:"sex"
+				},
+				{
+					name:"分数",
+					id:"score"
+				}
+			])
+			.constant("data",[
+				{
+					name:"zky",
+					age:24,
+					sex:"男",
+					score:95
+				},
+				{
+					name:"qxq",
+					age:22,
+					sex:"女",
+					score:210
+				},
+				{
+					name:"zh",
+					age:22,
+					sex:"女",
+					score:92
+				},
+				{
+					name:"tr",
+					age:19,
+					sex:"男",
+					score:70
+				},
+				{
+					name:"lr",
+					age:50,
+					sex:"男",
+					score:12
+				}
+			])
+			.controller("ctrl",["$scope","data","title",function($scope,data,title){
+				$scope.data =data;
+				$scope.title = title;
+			}]);
+</script>
+</body>
+</html>

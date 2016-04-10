@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<span>{{show()}}</span>
+</div>
+<script>
+	angular.module("app",[])  //以应用模块的方法构建控制器对象
+			.controller("ctrl",["$scope",function($scope){   //内联注入声明方式
+				$scope.text = "hello!";
+				$scope.show = function(){
+					$scope.text = "哈哈哈";
+					return $scope.text;
+				};
+			}]);
+</script>
+</body>
+</html>

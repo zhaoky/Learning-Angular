@@ -1,0 +1,38 @@
+<!--
+angular的表达式是运行在视图中的一个段代码
+	angular表达式和Js表达式的区别：
+		1.angular所有表达式的值都来源于$scope对象，由该对象以添加属性的方式统一进行设置，传统的JavaScript中，可以由全局的window对象来调用表达式
+		2.angular容错能力很强，允许值出现null和undefined
+		3.angular表达式的值来源固定，不允许出现各类判断和循环语句
+		4.angular表达式的值可以使用管道符进行格式化显示的数值
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="controller">
+		<p>执行JavaScript表达式：</p>
+		<input type="text" ng-model="data1">
+		<button ng-click="a(data1)">计算</button>
+		<p>执行angular表达式：</p>
+		<input type="text" ng-model="data2">
+		<!--<span ng-bind="data2"></span>   &lt;!&ndash;并不会计算&ndash;&gt;-->
+		<span ng-bind="$eval(data2)"></span>
+	</div>
+	<script>
+		angular.module("app",[])
+				.controller("controller",function($scope){
+					$scope.data1 = 1;
+					$scope.data2 = "20+1.1|number:0";   //$eval 方法对绑定的属性值直接进行解析
+					$scope.a = function(data){
+						var n = parseInt(data) + 1;
+						console.log(n);
+					}
+				});
+	</script>
+</body>
+</html>

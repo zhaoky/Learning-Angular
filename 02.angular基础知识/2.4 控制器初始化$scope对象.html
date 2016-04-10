@@ -1,0 +1,24 @@
+<!--
+	控制器的功能时管理页面的逻辑代码.
+	当控制器通过"ng-controller"指令被添加到DOM页面时,Angular将会通过控制器构造函数生成一个实体的对象,并把$scope对象当参数注入其中，允许用户访问$scope对象
+	用户可以通过$scope对象与页面中的元素进行数据绑定，从而实现数据从控制器层到视图层的过程。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl">
+		<span>{{temp}}</span>
+	</div>
+	<script>
+		angular.module("app",[])  //以应用模块的方法构建控制器对象
+				.controller("ctrl",["$scope",function($scope){   //内联注入声明方式
+					$scope.temp = "123";
+				}]);
+	</script>
+</body>
+</html>

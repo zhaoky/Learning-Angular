@@ -1,0 +1,44 @@
+<!--
+	表单是各类控件（如input、select、textarea）的集合体，这些控件依附于表单，形成DOM元素中最为重要的数据交互元素。
+	angular提供表单验证功能：为true
+		$pristine   未输入过
+		$dirty      已输入过
+		$valid      已验证通过
+		$invalid    未验证通过
+		$error      验证未通过的错误信息
+	checkbox和radio控件不具有angular验证功能。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<form action="" ng-controller="ctrl" ng-submit="save()" name="myForm">
+	<div>
+		<input type="text" ng-model="name" name="myName" required="required">
+		<span ng-show="myForm.myName.$error.required">姓名不能为空</span>
+	</div>
+	<div>
+		<input type="email" ng-model="email" name="myEmail" required="required">
+		<span ng-show="myForm.myEmail.$error.required">邮箱不能为空</span>
+		<span ng-show="myForm.myEmail.$error.email">邮箱格式不对</span>
+	</div>
+	<div>
+		<input type="submit" ng-disabled="myForm.$invalid" value="提交">
+	</div>
+</form>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.name = "zky";
+				$scope.email = "623212389@qq.com";
+				$scope.save = function(){
+					console.log("提交成功！");
+				}
+			}]);
+</script>
+</body>
+</html>

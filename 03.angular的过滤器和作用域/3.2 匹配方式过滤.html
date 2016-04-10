@@ -1,0 +1,50 @@
+<!--
+	匹配方式过滤的3种方式：
+		1.通过filter过滤器直接匹配包含字符参数的数据 {{data|filter:'匹配字符'}}
+		2.通过filter过滤器匹配在字符参数中使用对象形式匹配指定属性的数据  {{data|filter:对象}}
+		3.通过filter过滤器匹配在字符参数中使用自定义函数匹配相应数据  {{data|filter:函数名称}}
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<div ng-repeat="item in data1 |filter:'z'">{{item.name}}</div>
+	<br>
+	<div ng-repeat="item in data1 |filter:{age:'z'}">{{item.name}}</div>  <!--如果age为$ 则在全部属性中查找，等价于第一个-->
+	<br>
+	<div ng-repeat="item in data1 |filter:a">{{item.name}}</div>
+</div>
+<script>
+	angular.module("app",[])
+			.controller("ctrl",["$scope",function($scope){
+				$scope.data1 = [
+					{
+						name:"zky",
+						age:24
+					},
+					{
+						name:"qxq",
+						age:'zg'
+					},
+					{
+						name:"tr",
+						age:14
+					},
+					{
+						name:"lr",
+						age:50
+					}
+				];
+				$scope.a = function(obj){    //形参obj的值为数据源对象
+					console.log(obj); //即data1 打印了两次？
+					return obj.age<30&&obj.age>10;
+				}
+			}]);
+</script>
+</body>
+</html>

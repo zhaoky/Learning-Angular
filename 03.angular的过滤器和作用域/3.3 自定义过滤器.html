@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+	<div ng-repeat="item in data | a:1">{{item.name}}</div>
+</div>
+<script>
+	angular.module("app",[])
+			.constant("data",[
+				{
+					name:"zky",
+					age:24,
+					sex:"男",
+					score:95
+				},
+				{
+					name:"qxq",
+					age:22,
+					sex:"女",
+					score:210
+				},
+				{
+					name:"zh",
+					age:22,
+					sex:"女",
+					score:92
+				},
+				{
+					name:"tr",
+					age:19,
+					sex:"男",
+					score:70
+				},
+				{
+					name:"lr",
+					age:50,
+					sex:"男",
+					score:12
+				}
+			])
+			.filter("a",function(){
+				//通过return 返回一个函数
+				return function(a,sex){   //第一个参数是被过滤的数据；第二个参数是过滤器的参数
+					console.log(a,sex);
+					var type =sex?"男":"女";
+					var list = [];
+					angular.forEach(a,function(item){
+						if(item.sex == type&&item.score>90&&item.score<100){
+							list.push(item);
+						}
+					});
+					return list;
+				}
+			})
+			.controller("ctrl",["$scope","data",function($scope,data){
+				$scope.data =data;
+			}]);
+</script>
+</body>
+</html>

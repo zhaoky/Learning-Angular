@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<h3>请在下列文本框中输入任意内容</h3>
+<div ng-controller="controller">
+	<input type="text" ng-model="user.name">    <!--ng-model 双绑-->
+	<div>{{user.name}}</div>
+</div>
+<script>
+	angular
+			.module("app",[])    //【】为依赖的其他模块，及一些配置项
+			.controller("controller",["$scope",function($scope){
+//				$scope.user={name : "zky"};
+//				$scope.user = {};
+				$scope.user= null;   //定义为null后 不能往里面添加值
+//				$scope.user.name = "zky";   //错误 user未定义
+				$scope.user={name : "zky"}; //定义了一个对象
+			}]);
+</script>
+</body>
+</html>
