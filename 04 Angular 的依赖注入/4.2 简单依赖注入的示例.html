@@ -1,0 +1,49 @@
+<!--
+    config
+        作用：为定义的模版对象注入依赖的各种服务： $controllerProvider, $provide ,$routeProvider
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>222,{{text}}</div>
+    <button ng-click="on(1)">早上</button>
+    <button ng-click="on(2)">上午</button>
+    <button ng-click="on(3)">下午</button>
+    <button ng-click="on(4)">晚上</button>
+</div>
+<script>
+    angular.module("app",[])
+            .config(["$provide",function($provide){
+                $provide.provider("o1",function(){   //自定义服务
+                    this.$get = function(){
+                        return {
+                            name : function(name){
+                                return name;
+                            }
+                        }
+                    }
+                });
+            }])
+            .controller("ctrl",["$scope","o1",function($scope,o1){
+                $scope.text = "";
+                $scope.on = function(t){
+                   switch (t){
+                       case 1:
+                           $scope.text = o1.name("jaja");
+                   }
+                }
+            }]);
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!--
+    当用户在创建一个控制器时，实际上是在config函数中调用$controllerProvider服务的register方法来创建。
+    当创建完成时，在调用injector注入器完成各个依赖对象的注入。
+    config
+        作用：为定义的模版对象注入依赖的各种服务： $controllerProvider, $provide ,$routeProvider
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div class="{{a}}">222,{{show}}</div>
+    <button ng-click="on()">点我</button>
+</div>
+<script>
+    angular.module("app", [])
+
+            .config(["$controllerProvider", function ($controllerProvider) {
+                $controllerProvider.register("ctrl", ["$scope", function ($scope) {  //注册(创建依赖)ctrl 并注入了 $scope
+                    $scope.a = "";
+                    $scope.show = "";
+                    $scope.on = function () {
+                        $scope.a = "red";
+                        $scope.show = "啦啦啦";
+                    };
+                }]);
+            //等价于
+//            .controller("ctrl",["$scope",function($socpe){
+//
+//                }])
+            }]);
+</script>
+</body>
+</html>
