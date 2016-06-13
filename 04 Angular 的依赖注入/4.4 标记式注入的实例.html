@@ -1,0 +1,46 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+    <div ng-controller="ctrl">
+        <div>{{text}}</div>
+        <input type="button" value="弹弹弹" ng-click="a('我是弹弹弹')">
+        <input type="button" value="跳跳跳" ng-click="b('我是跳跳跳')">
+    </div>
+    <script>
+        //标记式注入：函数调用$inject属性完成，显式的声明各项服务名称，可混淆压缩
+        var ctrl = function(a,b,c){
+            a.a = function(msg){
+                b.s(msg);
+            };
+            a.b = function(msg){
+                c.s(msg);
+            }
+        };
+        ctrl.$inject = ['$scope','show1','show2'];  //是一个字符串数组，顺序不能乱
+        angular.module("app",[])
+                .factory("show1",["$window",function($window){
+                    return {
+                        s:function(text){
+                            $window.alert(text);
+                        }
+                    }
+                }])
+                .factory("show2",["$window",function($window){
+                    return {
+                        s:function(text){
+                            $window.alert(text);
+                        }
+                    }
+                }])
+                .controller("ctrl",ctrl);
+    </script>
+</body>
+</html>

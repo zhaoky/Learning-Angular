@@ -1,0 +1,39 @@
+<!--
+    $injector常用API ：has() get() invoke()
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+
+</div>
+<div ng-app="add">
+
+</div>
+<script>
+    //
+    var mo = angular.module("app",[])
+            .factory("cu",function(){
+                return{
+                    a:function(){
+                        console.log(111);
+                    }
+                }
+            });
+    console.log(mo);
+    var injector = angular.injector(['ng','app']);  //angular.injector()可以调用多次，每次都返回新建的injector对象。
+    var iscu = injector.has("cu");  //has方法：根据传入的名称，从注册列表中查找对应的服务，找到为true，否则为false
+    console.log(iscu);
+    if(iscu){
+        injector.get("cu").a(); //get方法：返回服务实例对象
+    }
+    mo.controller("ctrl",function($scope,cu){
+    });
+</script>
+</body>
+</html>

@@ -23,7 +23,7 @@
     <button ng-click="on(4)">晚上</button>
 </div>
 <script>
-    angular.module("app",[])
+    angular .module("app",[])
             .config(["$provide",function($provide){
                 $provide.provider("o1",function(){   //自定义服务
                     this.$get = function(){
@@ -35,12 +35,41 @@
                     }
                 });
             }])
-            .controller("ctrl",["$scope","o1",function($scope,o1){
+            .config(["$provide",function($provide){
+                $provide.factory("o2",function(){
+                    return {
+                        val:function(name){
+                            return name;
+                        }
+                    };
+                });
+            }])
+            .config(["$provide",function($provide){
+                $provide.value("o3",function(name){
+                    return name;
+                });
+            }])
+            .config(["$provide",function($provide){
+                $provide.service("o4",function(){
+                    return {
+                        val:function(name){
+                            return name;
+                        }
+                    }
+                });
+            }])
+            .controller("ctrl",["$scope","o1","o2","o3","o4",function($scope,o1,o2,o3,o4){
                 $scope.text = "";
                 $scope.on = function(t){
                    switch (t){
                        case 1:
-                           $scope.text = o1.name("jaja");
+                           $scope.text = o1.name("111111");break;
+                       case 2:
+                           $scope.text = o2.val("222222");break;
+                       case 3:
+                           $scope.text = o3("3333");break;
+                       case 4:
+                           $scope.text = o4.val("4444");break;
                    }
                 }
             }]);

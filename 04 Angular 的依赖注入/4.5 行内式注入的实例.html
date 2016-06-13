@@ -1,0 +1,33 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <input type="button" value="弹弹弹" ng-click="a('我是弹弹弹')">
+</div>
+<script>
+    //行内式注入（最常用）：在构建angular 控制器对象时，将服务名作为字符串参数数组传入，除最后一个必须是函数体。
+    angular.module("app",[])
+            .factory("show",["$window",function($window){
+                return {
+                    s:function(text){
+                        $window.alert(text);
+                    }
+                }
+            }])
+            .controller("ctrl",['$scope','show',function(a,b){   //可混淆
+                a.a = function(msg){
+                    b.s(msg);
+                };
+
+            }]);
+</script>
+</body>
+</html>

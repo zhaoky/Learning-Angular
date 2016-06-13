@@ -1,0 +1,35 @@
+<!--
+    每个angular的应用都是由注入器(injector)负责查找和创建依赖注入的服务。
+    injector本质是一个服务的定位器，可以快速定位到应用中需要注入的各种服务。
+    在定位的过程中，需要应用提供一些注入时依赖的标记，通过这些标记，告诉注入器需要注入什么样的依赖服务。
+    标记称为：依赖注入标记，分3种：推断式注入，标记式注入，行内式注入。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+    <div ng-controller="ctrl">
+        <input type="button" value="弹弹弹" ng-click="a('我是弹弹弹')">
+    </div>
+    <script>
+        //推断式注入：在没有明确声明下，angular会认为参数名称就是依赖注入的函数名。 所以该方法不能处理压缩或混淆后的代码！！！
+        angular.module("app",[])
+                .factory("show",["$window",function($window){
+                    return {
+                        s:function(text){
+                            $window.alert(text);
+                        }
+                    }
+                }])
+                .controller("ctrl",function($scope,show){   //没有使用【】
+                    $scope.a = function(msg){
+                        show.s(msg);
+                    }
+                });
+    </script>
+</body>
+</html>

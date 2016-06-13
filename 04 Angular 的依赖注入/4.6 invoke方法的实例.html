@@ -1,0 +1,30 @@
+<!--
+    invoke() : 执行一个自定义函数
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-app="app" ng-controller="ctrl">
+</div>
+<script>
+    var appa = angular.module("app",[])
+            .factory("fa",function(){
+                return{
+                    a:function(msg){
+                        console.log(msg);
+                    }
+                }
+            });
+    angular.injector(["app"]).invoke(function(fa){
+        fa.a("666");      //不仅执行名称对应的函数代码，而且还能返回被执行函数返回的值。
+    });
+    appa.controller("ctrl",function($scope,fa){
+            })
+</script>
+</body>
+</html>
