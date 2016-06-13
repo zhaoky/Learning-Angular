@@ -1,0 +1,31 @@
+<!--
+    ng-repeat在遍历的过程中，为每项数组元素都创建了一个作用域，并在作用域中创建对应的数据模型，再将对应的数组元素值设置为模型值。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <p ng-repeat="stu in data">
+        <span>{{stu.name}}</span>
+        <span>{{stu.sex}}</span>
+    </p>
+</div>
+<script>
+        //model组件
+        angular.module("app",[])
+                .controller("ctrl",function($scope){ 
+                    $scope.data = [
+                        {name:"zky",sex:"男"},
+                        {name:"qxq",sex:"女"},
+                        {name:"tr",sex:"男"},
+                        {name:"lr",sex:"男"}
+                    ];
+                });
+</script>
+</body>
+</html>

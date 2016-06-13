@@ -1,0 +1,32 @@
+<!--
+    controller控制器：本质是一个js函数，用于衔接页面模版和逻辑代码，并通过添加对象和行为来增强模版中作用域的功能。
+        创建控制器来实现view和model逻辑代码的关联，关联的方法是以scope.$new的形式向控制器添加模型属性。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <button ng-click="changeA()">A</button>
+    <button ng-click="changeB()">B</button>
+    <p>我的名字：{{name}}</p>
+</div>
+<script>
+
+        angular.module("app",[])
+                .controller("ctrl",function($scope) {
+                    $scope.name="张三";   //添加属性
+                    $scope.changeA = function(){  //添加方法
+                        $scope.name = "A";
+                    };
+                    $scope.changeB = function(){
+                        $scope.name = "B";
+                    }
+                });
+</script>
+</body>
+</html>

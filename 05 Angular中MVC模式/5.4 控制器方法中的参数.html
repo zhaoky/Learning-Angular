@@ -1,0 +1,42 @@
+<!--
+    控制器的属性值发生变化，视图中绑定的对应元素内容将进行自动同步更新
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>
+        <input type="text" ng-model="a">
+        <span>{{type}}</span>
+        <input type="text" ng-model="b">
+        <span>=</span>
+        <span>{{result}}</span>
+    </div>
+    <div>
+        <button ng-click="change(1)">加法</button>   <!--传递参数-->
+        <button ng-click="change(0)">乘法</button>
+    </div>
+</div>
+<script>
+
+        angular.module("app",[])
+                .controller("ctrl",function($scope) {
+                    $scope.type="+";
+                    $scope.change =function(flag){
+                        if(flag){
+                            $scope.type="+";
+                            $scope.result = parseInt($scope.a)+parseInt($scope.b);
+                        }else{
+                            $scope.type="*";
+                            $scope.result = parseInt($scope.a)*parseInt($scope.b);
+                        }
+                    }
+                });
+</script>
+</body>
+</html>

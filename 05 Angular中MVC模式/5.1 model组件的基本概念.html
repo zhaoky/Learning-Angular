@@ -1,0 +1,33 @@
+<!--
+    在客户端开发过程中：可以将前端页面分为M，V，C，其中Model用于存储数据和应用逻辑处理，View用于管理应用界面，Controller负责衔接Model和View之间的交互。
+            由控制器controller处理模型model和view视图所需要的各种逻辑关系，并提供数据的支持，当view视图的数据发生改变后，将会直接影响到模型model结构的变化。
+    MVC的优缺点：
+        优势一：提升服务器的性能
+        优势二：减少项目开发的时间
+        缺点一：页面渲染缓慢
+        缺点二：页面兼容性较差，不利于SEO
+    model组件：在Angular中，model模型对象依附于作用域，无论是模型的整个或某个实体对象，都必须被angular的作用域以属性的方式进行引用，这种引用可以显示的或隐示的创建
+        一旦模型对象已属性的方式被作用域说引用，此时的属性名就是模型的名称，他的值就是整个或某个实体对象。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>{{name}}</div>
+    <input type="text" ng-model="score">  <!--隐式创建-->
+    <div>{{score}}</div>
+</div>
+<script>
+        //model组件
+        angular.module("app",[])
+                .controller("ctrl",function($scope){
+                    $scope.name = "zky";  //显式创建
+                });
+</script>
+</body>
+</html>
