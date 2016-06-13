@@ -1,0 +1,49 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+    <script src="../js/angular-route.js"></script>
+</head>
+<body>
+<div>
+    <div>
+        <a href="#/zz">zz</a>
+        <a href="#/book">图书</a>
+        <a href="#/game">游戏</a>
+    </div>
+    <div ng-view></div>
+</div>
+<script>
+    angular.module("app",["ngRoute"])
+            .controller("ctrl1",function($scope){
+                $scope.title="111";
+            }).controller("ctrl2",function($scope){
+                $scope.title="222";
+            }).controller("ctrl3",function($scope){
+                $scope.title="333";
+            })
+            .config(["$routeProvider",function($routeProvider){
+                $routeProvider
+                        .when("/zz",{
+                            controller:'ctrl1',
+                            template:'<div>{{title}}</div>'
+                        })
+                       .when("/book",{
+                            controller:'ctrl2',
+                            template:'<div>{{title}}</div>'
+                        }).when("/game",{
+                            controller:'ctrl3',
+                            template:'<div>{{title}}</div>'
+                        }).otherwise({
+                            redirectTo:'/'
+                        });
+            }])
+    ;
+</script>
+</body>
+</html>

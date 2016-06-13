@@ -1,0 +1,38 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl1">
+    <div>{{name1}}||{{name2}}||{{name3}}</div>
+    <div ng-controller="ctrl2">
+        <div>{{name1}}||{{name2}}||{{name3}}</div>
+        <div ng-controller="ctrl3">
+            <div>{{name1}}||{{name2}}||{{name3}}</div>
+        </div>
+    </div>
+</div>
+<script>
+    angular.module("app", [])
+            .controller("ctrl1", function ($scope) {
+//                $scope.name1 = "zky";
+//                $scope.name2 = "qxq";
+//                $scope.name3 = "lr";
+            }).controller("ctrl2", function ($scope) {
+//                $scope.name1 = "zky";
+//                $scope.name2 = "qxq";
+//                $scope.name3 = "lr";
+            }).controller("ctrl3", function ($scope) {
+                $scope.name1 = "zky";
+                $scope.name2 = "qxq";
+                $scope.name3 = "lr";
+            });
+</script>
+</body>
+</html>
