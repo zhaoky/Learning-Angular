@@ -1,0 +1,37 @@
+<!--
+    service 接收一个构造函数。 当注入该服务时，通过该函数并使用new关键字来实例化服务对象
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+   <div>姓名：{{name}}</div>
+   <div>邮件：{{email}}</div>
+   <div>{{title}}</div>
+    <button ng-click="say()">主题</button>
+</div>
+<script>
+    angular.module("app",[])
+            .service("data",function(){
+                this.name = "zky";
+                this.email= "623212389@qq.com";
+                this.say= function(){
+                    return "angular JS";
+                };
+            })
+            .controller("ctrl",function($scope,data){
+                $scope.name = data.name;
+                $scope.email= data.email;
+                $scope.say= function(){
+                    $scope.title = data.say();
+                };
+
+            });
+</script>
+</body>
+</html>

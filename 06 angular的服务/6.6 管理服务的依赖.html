@@ -1,0 +1,34 @@
+<!--
+    添加自定义服务依赖项方法：
+        隐式指明 app.factory("service",function(a1,a2){});
+        调用$inject属性   var sf = function(a1,a2){};sf.$inject = [a1,a2]; app.factory("service",sf);
+        显式声明    app.factory("service",["a1","a2",function(a1,a2){}]);
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>你选择的是：{{result}}</div>
+    <button ng-click="con('要删除？')">删除</button>
+</div>
+<script>
+    angular.module("app",[])
+            .service("not",function($window){
+                return function(msg){
+                    return $window.confirm(msg)?"确定":"取消";
+                }
+            })
+            .controller("ctrl",["$scope","not",function($scope,not){
+                $scope.con=function(msg){
+                    $scope.result = not(msg);
+                }
+            }])
+    ;
+</script>
+</body>
+</html>

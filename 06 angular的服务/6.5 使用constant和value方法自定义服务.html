@@ -1,0 +1,33 @@
+<!--
+    constant 和 value 创建的服务返回一个常量
+    区别：constant方法创建服务返回的常量可以注入配置函数(config)中，而value不行
+    故constant方法常用于创建配置数据，而value方法用于创建对象和函数。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>编号：{{book}}</div>
+    <div>美元：{{usd}}</div>
+</div>
+<script>
+    angular.module("app",[])
+            .constant("BOOK",{
+                book:"2131244214"
+            })
+            .constant("RATE",{
+                usd:"642.12"
+            })
+            .controller("ctrl",function($scope,BOOK,RATE){
+                angular.extend(RATE,{usd:"600"});
+                $scope.book = BOOK.book;
+                $scope.usd = RATE.usd;
+            });
+</script>
+</body>
+</html>

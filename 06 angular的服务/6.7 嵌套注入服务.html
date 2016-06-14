@@ -1,0 +1,35 @@
+<!--
+    嵌套注入服务，跟注入内置服务一样的
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <button ng-click="ask(false,'不正确！')">提示框</button>
+    <button ng-click="ask(true,'真的删除？！')">询问框</button>
+</div>
+<script>
+    angular.module("app",[])
+            .factory("con",["$window",function($window){
+                return function(msg){
+                    $window.confirm(msg);
+                }
+            }])
+            .service("not",["$window","con",function($window,con){
+                return function(flag,m){
+                    return (flag) ? con(m):$window.alert(m);
+                }
+            }])
+            .controller("ctrl",function($scope,not){
+                $scope.ask = function(flag,m){
+                    not(flag,m);
+                }
+            });
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl1">
+    <div>编号：{{stu.code}}</div>
+    <div>姓名：{{stu.name}}</div>
+    <div>分数：{{stu.score}}</div>
+    <button ng-click="reset()">重置</button>
+</div>
+<div ng-controller="ctrl2">
+    <div>编号：{{stu.code}}</div>
+    <div>姓名：{{stu.name}}</div>
+    <div>分数：{{stu.score}}</div>
+</div>
+<script>
+    function student(json){
+        angular.extend(this,json);
+        this.reset= function(){
+            this.code = 1000;
+            this.name = "zky";
+            this.score = 0;
+        };
+    }
+    student.create = function(){
+        return new student({
+            code:1001,
+            name:"qxq",
+            score:98
+        });
+    };
+    angular.module("app",[])
+            .factory("stu",function(){
+                return {
+                    create:student.create
+                }
+            })
+            .controller("ctrl1",function($scope,stu){
+                $scope.stu = stu.create();  //多次调用
+                $scope.reset = function(){
+                    $scope.stu.reset();
+                }
+            })
+            .controller("ctrl2",function($scope,stu){
+                $scope.stu = stu.create(); //多次调用
+            })
+    ;
+</script>
+</body>
+</html>

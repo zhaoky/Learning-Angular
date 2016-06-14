@@ -1,0 +1,36 @@
+<!--
+   服务装饰器：所谓服务装饰器，指的是angular中内置服务$provide所特有的一项设置函数，通过它可以拦截服务在实例化时创建的一些功能，并且可以对原有的服务功能进行优化和替代。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>姓名：{{stu.name}}</div>
+    <div>邮件：{{stu.email}}</div>
+    <div>主题：{{stu.title}}</div>
+</div>
+<script>
+    angular.module("app",[])
+            .factory("stu",function(){
+                return {
+                    name:"zky",
+                    email:"623212389@qq.com"
+                }
+            })
+            .config(function($provide){
+                $provide.decorator("stu",function($delegate){   //通过函数中的$delegate参数访问原服务中的对象（即$delegate参数是原服务stu的实例）
+                    $delegate.title = "hello,angularJS!";
+                    return $delegate;
+                })
+            })
+            .controller("ctrl",function($scope,stu){
+                $scope.stu = stu;
+            });
+</script>
+</body>
+</html>
