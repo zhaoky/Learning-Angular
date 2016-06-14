@@ -1,0 +1,51 @@
+<!--
+    多页面切换并传递参数
+    $route
+    $routeParams
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+    <script src="../js/angular-route.js"></script>
+</head>
+<body>
+<div ng-view>
+</div>
+<script>
+    angular.module("app",["ngRoute"])
+            .constant("stu",[
+                {id:1000,name:"zky",sex:"男",score:"101"},
+                {id:2000,name:"qxq",sex:"女",score:"90"},
+                {id:3000,name:"tr",sex:"男",score:"20"},
+                {id:4000,name:"lr",sex:"男",score:"-10"}
+            ])
+            .controller("ctrl1",function($scope,stu,$route,$routeParams){
+                $scope.stu = stu;   //列表页
+                console.log(1,$route);
+                console.log(2,$routeParams);
+            }).controller("ctrl2",function($scope,stu,$route,$routeParams){
+                for(var i = 0; i<stu.length;i++){
+                    if(stu[i].id == $routeParams.id){
+                        $scope.stu = stu[i];
+                    }
+                }
+                console.log(3,$route);
+                console.log(4,$routeParams);             //详情页
+            }).config(["$routeProvider",function($routeProvider){
+                $routeProvider
+                        .when("/",{
+                            controller:"ctrl1",
+                            templateUrl:"view-1.html"
+                        }).when("/view::id",{          //参数：$routeParams:{id:***}
+                            controller:"ctrl2",
+                            templateUrl:"view-2.html"
+                        }).otherwise({
+                            redirectTo:"/"
+                        });
+    }]);
+</script>
+</body>
+</html>

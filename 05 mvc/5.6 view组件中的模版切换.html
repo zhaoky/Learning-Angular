@@ -1,5 +1,6 @@
 <!--
-
+    view组件：先经过浏览器加载并渲染后，再根据视图模版和对应控制器模型修改后所包含的DOM元素。
+    view组件是多方作用的结果，它的外形取决于视图模版，内部数据来源于控制器。
 -->
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
@@ -16,9 +17,11 @@
         <a href="#/book">图书</a>
         <a href="#/game">游戏</a>
     </div>
-    <div ng-view></div>
+    <div ng-view></div> <!--装载不同模板的容器-->
 </div>
 <script>
+    //angular应用中，常常是单页面。为了在视图模版中实现多个功能，需要在页面的局部进行刷新或切换。
+    //所以需要借助ng-view指令，在控制器中引入$routeProvider服务。
     angular.module("app",["ngRoute"])
             .controller("ctrl1",function($scope){
                 $scope.title="111";
