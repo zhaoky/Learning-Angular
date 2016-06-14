@@ -1,0 +1,28 @@
+<!--
+    angular中服务是单例对象：服务在每一个应用中只会被实例化一次，并且是在需要时异步进行加载。
+    服务的功能：为实现应用的功能提供数据和对象。
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>当前地址是：{{url}}</div>
+    <button ng-click="a()">显示地址</button>
+</div>
+<script>
+ angular.module("app",[])
+         .controller("ctrl",function($scope,$location){   //$location 内置服务
+            $scope.a= function(){
+                $scope.url = $location.absUrl();
+            }
+         });
+    //内置服务使用很方便：只需将服务注入需要服务的容器中（控制器，指令，其他自定义服务），就可以采用对象的形式调用服务中包含的方法和属性。
+</script>
+</body>
+</html>

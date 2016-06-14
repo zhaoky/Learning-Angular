@@ -1,0 +1,30 @@
+<!--
+    自定义服务的两种方法： $provide服务 和 调用模块中的服务注册方法（factory，service，value，constant等）
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>服务返回来的值：<span>{{info['name']}}</span> <span>{{info['sex']}}</span> <span>{{info['score']}}</span></div>
+</div>
+<script>
+    angular.module("app",[],function($provide){
+        $provide.factory("data",function(){     //$provide是内置服务
+            return {
+                name:"zky",
+                sex:"男",
+                score:99
+            }
+        })
+    })
+            .controller("ctrl",function($scope,data){   //当通过 注入的方式向控制器添加自定义服务时，这个服务已经是一个实例化的服务对象。
+                $scope.info = data;
+            });
+</script>
+</body>
+</html>

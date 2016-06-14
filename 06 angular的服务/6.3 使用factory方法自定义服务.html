@@ -1,0 +1,39 @@
+<!--
+    最常用的方法：factory方法  返回一个能被注入对象的数组或函数
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>{{str("啦啦啦")}}</div>
+    <div>{{name(1)}}</div>
+</div>
+<script>
+    angular.module("app",[])
+            .factory("out",function(){
+                return {
+                    str:function(s){
+                        return s;
+                    }
+                }
+            })
+            .factory("nameList",function(){
+                return ["zky","tr","qxq"];
+            })
+            .controller("ctrl",function($scope,out,nameList){
+                $scope.str = function(n){
+                    return out.str(n);
+                };
+                $scope.name = function(n){
+                    return nameList[n];
+                }
+            });
+
+</script>
+</body>
+</html>
