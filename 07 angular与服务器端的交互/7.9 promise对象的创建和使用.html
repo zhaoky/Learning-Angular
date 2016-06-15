@@ -1,0 +1,46 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <div>{{t0}}</div>
+    <div>{{t1}}</div>
+    <div>{{t2}}</div>
+    <button ng-click="action(true)">解决</button>
+    <button ng-click="action(false)">拒绝</button>
+</div>
+<script>
+    angular.module("app",[])
+            .controller("ctrl",function($scope,$q){
+                var defer = $q.defer();  // 创建延迟对象
+                console.log(defer);
+                $scope.action = function(flag){
+                    defer.notify(1);
+                    if(flag){
+                        defer.resolve(1);
+                    }else{
+                        defer.reject(1);
+                    }
+                };
+                var promise = defer.promise;   // 实例化了一个promise对象
+                    promise.then(function(n){
+                        n++;
+                        $scope.t1 = "成功"+n;
+                    },function(n){
+                        n++;
+                        $scope.t2 = "失败"+n;
+                    },function(n){
+                        n++;
+                        $scope.t0 = "ing..."+n;
+                    });
+            });
+</script>
+</body>
+</html>
