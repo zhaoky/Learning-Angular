@@ -1,0 +1,47 @@
+<!--
+    指令： app.directive(name,fn)  name用驼峰命名。前半截是指令前缀（公司名称，项目名等缩写），后半截是指令作用。
+            第二个参数是函数，该函数返回一个对象。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+    <div>
+        <ts-tpl>123</ts-tpl>
+        <ts-html>123</ts-html>
+        <ts-cache>123</ts-cache>
+    </div>
+<script type="text/ng-template" id="tpl">
+    <h3>来自script元素 type=“text/ng-template”</h3>
+</script>
+<script>
+    angular.module("app",[])
+            .run(function($templateCache){    //模块被加载的时候自动执行
+                $templateCache.put("cache",'<h3>来自缓存</h3>');
+            })
+            .directive("tsTpl",function(){
+                return {
+                    restrict:"E",
+                    templateUrl:'tpl'
+                }
+            })
+            .directive("tsHtml",function(){
+                return {
+                    restrict:"E",
+                    templateUrl:'tpl.html',
+                    replace:true
+                }
+            })
+            .directive("tsCache",function(){
+                return {
+                    restrict:"E",
+                    templateUrl:'cache'
+                }
+            })
+</script>
+</body>
+</html>

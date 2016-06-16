@@ -1,0 +1,30 @@
+<!--
+    指令： app.directive(name,fn)  name用驼峰命名。前半截是指令前缀（公司名称，项目名等缩写），后半截是指令作用。
+            第二个参数是函数，该函数返回一个对象。
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <ts-hello></ts-hello>
+    <div ts-hello></div>
+    <div class="ts-hello"></div>
+    <div data-ts-hello></div>
+</div>
+<script>
+    angular.module("app",[])
+            .directive("tsHello",function(){
+                return {
+                    restrict:"AEC",
+                    template:"<div>hello!angular指令！</div>"
+                }
+            })
+            .controller("ctrl",function($scope){});
+</script>
+</body>
+</html>

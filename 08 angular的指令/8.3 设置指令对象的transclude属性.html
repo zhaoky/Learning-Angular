@@ -1,0 +1,30 @@
+<!--
+    transclude:可以不加，布尔值，默认false
+        桥梁作用
+        该属性的作用：为了保留指令元素中原有的内容
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+    <ts-tpl>{{txt}}</ts-tpl>
+    <script type="text/ng-template" id="tpl">
+        <input type="text" ng-model="txt">
+        <div ng-transclude>123</div>
+    </script>
+<script>
+    angular.module("app",[])
+            .directive("tsTpl",function(){
+                return {
+                    restrict:"E",
+                    templateUrl:"tpl",
+                    transclude:true
+                }
+            });
+</script>
+</body>
+</html>
