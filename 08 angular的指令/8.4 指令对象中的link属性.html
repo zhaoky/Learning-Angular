@@ -26,7 +26,7 @@
                     link:function(scope,ele,attrs){   //scope:指令的作用域，ele：指令的jq对象，attrs：指令包含的属性对象
                         console.log(attrs);
                         ele.bind("click",function(){
-                            scope.$apply(function(){
+                            scope.$apply(function(){  //必须用$apply进行双绑
                                 scope.text = attrs.showText;
                             });
                             ele[0].querySelector("button").disabled = true;

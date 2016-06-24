@@ -1,0 +1,62 @@
+<!--
+    scope属性值设置成json对象，则父作用域和子作用域是完全独立，互不关联。
+        当是json对象时，从link中添加属性；如果想绑定或调用父作用域的属性和方法，需要在scope属性对应的json对象值中添加绑定策略。
+        绑定策略： @ = &
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<script type="text/ng-template" id="tpl">
+    <div>
+        <span>姓名：{{textName}}</span>
+        <span>年龄：{{textAge}}</span>
+    </div>
+    <button ng-transclude></button>
+</script>
+<div ng-controller="ctrl">
+    <div>姓名: <input type="text" ng-model="text_name" placeholder="请输入姓名"></div>
+    <div>年龄: <input type="text" ng-model="text_age" placeholder="请输入年龄"></div>
+    <div>{{tip}}</div>
+    <ts-html a-attr="text_name" b-attr="text_age" c-attr="alert(" reset="reSet()">重置</ts-html>
+</div>
+<script>
+    angular.module("app",[])
+            .controller("ctrl",function($scope){
+                $scope.reSet = function(){
+                    $scope.tip = "重置成功！";
+                }
+            })
+            .directive("tsHtml",function(){
+                return{
+                    restrict:"E",
+                    transclude:true,
+                    templateUrl:"tpl",
+                    scope: {
+                        textName : "=aAttr",
+                        textAge : "=bAttr",
+                        reDet: "&cAttr"
+                    },
+                    link:function(scope,ele,attr){
+                        console.log(3,scope);
+                        ele.bind("click",function(){
+                            $scope.$apply(function(){
+                                var a = scope.reDet();
+                                console.log(a);
+                                scope.textName = "zky";
+                                scope.textAge= 24;
+                            });
+
+                        });
+                    }
+                }
+
+            })
+    ;
+</script>
+</body>
+</html>

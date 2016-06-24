@@ -1,0 +1,60 @@
+<!--
+    compile属性  该属性返回一个函数或对象  返回函数时，函数名为post 返回对象时：包含两个函数（post pre）
+                添加compile函数时，自动忽略link函数，因为有post
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <ts-a>
+        <ts-b>
+            {{tip}}
+        </ts-b>
+    </ts-a>
+</div>
+<script>
+    angular.module("app",[])
+            .controller("ctrl",function($scope){
+                $scope.tip = "跟踪compile的进程"
+            })
+            .directive("tsA",function(){
+                return{
+                    restrict:"E",
+                    compile:function(ele,attr,trans){
+                        console.log("正在编译A指令...");   //1
+                        return{
+                            pre:function(scope,ele,attr){
+                                console.log("A指令的pre....");  //3
+                            },
+                            post:function(scope,ele,attr){
+                                console.log("A指令的post....");  //6
+                            }
+                        }
+                    }
+                }
+            })
+            .directive("tsB",function(){
+                return{
+                    restrict:"E",
+                    compile:function(ele,attr,trans){
+                        console.log("正在编译B指令...");  //2
+                        return{
+                            pre:function(scope,ele,attr){  //4
+                                console.log("B指令的pre....");
+                            },
+                            post:function(scope,ele,attr){
+                                console.log("B指令的post....");   //5
+                            }
+                        }
+                    }
+                }
+            })
+    ;
+</script>
+</body>
+</html>

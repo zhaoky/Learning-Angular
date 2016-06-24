@@ -1,0 +1,40 @@
+<!--
+    scope属性：高频率用。两种类型：布尔值和json对象。默认布尔值false（指令的作用域就是指令元素所在的作用域）
+            为true的时候，子作用域（指令的）就是独立创建的 （子继承父，父不能读取子）
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<script type="text/ng-template" id="tpl">
+    <div>{{message}}</div>
+    <button ng-transclude></button>
+</script>
+<div>
+    <input type="text" placeholder="请输入。。" ng-model="message">
+    <ts-ms>原始按钮</ts-ms>
+</div>
+<script>
+    angular.module("app",[])
+            .directive("tsMs",function(){
+                return{
+                    restrict : "E",
+                    templateUrl:"tpl",
+                    transclude:true,
+                    scope:true,  //true的话就变成子作用域了
+                    link:function(scope,ele,attr){
+                        ele.bind("click",function(){
+                            scope.$apply(function(){
+                                scope.message = "单击后~~";
+                            });
+                        });
+                    }
+                }
+            });
+</script>
+</body>
+</html>
