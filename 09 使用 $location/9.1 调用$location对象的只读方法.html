@@ -1,0 +1,30 @@
+<!--
+	$locationg服务封装了原始JavaScript中location对象的属性和方法。
+		只读方法：absUrl()	protocol()	host()	port() replace()
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="controller">
+	<div>绝对地址absUrl：{{absUrl}}</div>
+	<div>协议名称protocol：{{protocol}}</div>
+	<div>主机名称host：{{host}}</div>
+	<div>端口号port：{{port}}</div>
+</div>
+<script>
+	angular
+			.module("app",[])
+			.controller("controller",["$scope","$location",function($scope,$location){
+				$scope.absUrl = $location.absUrl();
+				$scope.protocol = $location.protocol();
+				$scope.host = $location.host();
+				$scope.port = $location.port();
+			}]);
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!--
+ 	1.调用element方法控制DOM元素：
+ 		调用angular.element(document.getElementById("aa"))生成jQLite对象
+ 	2.解决setTimeOut改变属性的无效：
+ 		setTimeOut(function(){
+ 			$scope.$apply(function(){
+ 				$scope.tip="来到！";
+ 			});
+ 		},5*1000) 或
+ 		$setTimeOut(function(){xxx},5*1000);
+ 	3.解决双大括 号绑定元素时的闪烁问题
+ 		ng-bind
+ 	4.注意ng-repeat中的索引号：
+ 		1.添加了过滤器索引号无效。
+ 		2.使用track by排序ng-repeat中的数据
+ 		3.正确理解ng-repeat指令中scope的继承关系
+ 	5.解决单击按钮事件中的冒泡现象
+ 		a(data,$event)  $event.stopPropagation()
+ 	6.释放多余的$watch监测函数
+ 		对于不再使用的$watch，最好尽早将其释放，$scope.$watch函数的返回值就是用于释放这个watcher的函数
+ 	7.解决ng-if中ng-model值无效的问题 ： $parent
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="controller">
+
+</div>
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!--
+	读写类调用方法时不传参数，则读。传参数则改并返回一个相同的$location对象
+		读写方法：url()	hash()	search()	path()
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="controller">
+	<div>(#后面的)url：<span ng-bind="url"></span></div>
+	<div>(#的#hash)hash：{{hash}}</div>
+	<div>(?后面的)search：{{search}}</div>
+	<div>(/后面的)path：{{path}}</div>
+	<div ng-click="a()">a</div>
+	<div ng-click="b()">b</div>
+	<div ng-click="c()">c</div>
+</div>
+<script>
+	angular
+			.module("app",[])
+			.controller("controller",["$scope","$location",function($scope,$location){
+				console.log($location.url());
+				$scope.a = function(){
+					$location.search({a:"1",b:"2"});
+				};
+				$scope.b = function(){
+					$location.hash("asd");
+				};
+				$scope.c = function(){
+					$scope.path = $location.path("/asd");
+					$location.replace();
+				};
+				$scope.url = $location.url();
+				$scope.hash = $location.hash();
+				$scope.search = $location.search();
+				$scope.path = $location.path();
+			}]);
+</script>
+</body>
+</html>
