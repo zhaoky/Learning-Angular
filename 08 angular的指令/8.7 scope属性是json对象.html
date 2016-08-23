@@ -22,7 +22,7 @@
     <div>姓名: <input type="text" ng-model="text_name" placeholder="请输入姓名"></div>
     <div>年龄: <input type="text" ng-model="text_age" placeholder="请输入年龄"></div>
     <div>{{tip}}</div>
-    <ts-html a-attr="text_name" b-attr="text_age" c-attr="alert(" reset="reSet()">重置</ts-html>
+    <ts-html a-attr="text_name" b-attr="text_age" reset="reSet()">重置</ts-html>
 </div>
 <script>
     angular.module("app",[])
@@ -39,14 +39,13 @@
                     scope: {
                         textName : "=aAttr",
                         textAge : "=bAttr",
-                        reDet: "&cAttr"
+                        reDet: "&reset"
                     },
                     link:function(scope,ele,attr){
                         console.log(3,scope);
                         ele.bind("click",function(){
-                            $scope.$apply(function(){
-                                var a = scope.reDet();
-                                console.log(a);
+                            scope.$apply(function(){
+                                scope.reDet();
                                 scope.textName = "zky";
                                 scope.textAge= 24;
                             });

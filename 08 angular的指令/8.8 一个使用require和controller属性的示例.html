@@ -1,0 +1,88 @@
+<!--
+    require 向外层寻找指令
+    controller：构造型函数，他的方法和属性都会被实例的对象继承，这个实例是子元素的link函数的第4个参数。
+    父元素中，添加构造函数时，函数中的参数就是子元素指令中的scope对象
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <ts-parent>
+        <div>{{a}}</div>
+        <!--<ts-child>-->
+            <!--<div>{{b}}</div>-->
+            <!--<div ng-click="zky()">bbb</div>-->
+        <!--</ts-child>-->
+        <button ng-click="click()">换位</button>
+    </ts-parent>
+</div>
+<script>
+    angular.module("app",[])
+            .directive("tsParent",function(){
+                Controller.$inject = ["$scope"];
+                function Controller($scope){
+
+                    $scope.a = "aaaa";
+
+                    $scope.click = function(){
+                        console.log("外");
+                    }
+
+                    var vm = this;
+                    vm.aa = "asdasdas";
+                    vm.addChild = function(data){
+                        console.log(data);
+                        $scope.a = "今天天气不错！";
+                        $scope.click = function(data){
+                            var tmp;
+                            tmp = $scope.a;
+                            $scope.a = data.b;
+                            data.b = tmp;
+                        }
+                    }
+                }
+                return{
+                    restrict:"E",
+                    scope:{},
+                    controller:Controller
+                }
+            })
+//            .directive("tsChild",function(){
+//
+//                Controller.$inject = ["$scope"];
+//
+//                function Controller($scope){
+//                    var vm = this;
+//                    vm.bb = "lalal";
+//                    $scope.zky = function(){
+//                        console.log("haahahhaha");
+//                    }
+//                }
+//
+//                function link($scope,ele,attr,ctrl){
+//                    $scope.b = "气温很高下！";
+//                    ctrl.addChild($scope);
+//                }
+//
+//                return{
+//                    restrict:"E",
+//                    require:"^tsParent",
+//                    link:link,
+//                    scope:{},
+//                    controller:Controller,
+//                    controllerAs:"child",
+//                    bindToController:true
+//                }
+//            })
+            .controller("ctrl",function(){
+
+            });
+    ;
+</script>
+</body>
+</html>
