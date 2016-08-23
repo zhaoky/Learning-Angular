@@ -14,10 +14,7 @@
 <div ng-controller="ctrl">
     <ts-parent>
         <div>{{a}}</div>
-        <!--<ts-child>-->
-            <!--<div>{{b}}</div>-->
-            <!--<div ng-click="zky()">bbb</div>-->
-        <!--</ts-child>-->
+
         <button ng-click="click()">换位</button>
     </ts-parent>
 </div>
@@ -31,7 +28,7 @@
 
                     $scope.click = function(){
                         console.log("外");
-                    }
+                    };
 
                     var vm = this;
                     vm.aa = "asdasdas";
@@ -39,6 +36,7 @@
                         console.log(data);
                         $scope.a = "今天天气不错！";
                         $scope.click = function(data){
+                            console.log(data);
                             var tmp;
                             tmp = $scope.a;
                             $scope.a = data.b;
@@ -49,36 +47,41 @@
                 return{
                     restrict:"E",
                     scope:{},
-                    controller:Controller
+                    controller:Controller,
+                    controllerAs:"cc",
+                    bindToController:true,
+                    template:'<ts-child> <div>{{b}}</div> <div ng-click="zky()">bbb</div> </ts-child>'
+
                 }
             })
-//            .directive("tsChild",function(){
-//
-//                Controller.$inject = ["$scope"];
-//
-//                function Controller($scope){
-//                    var vm = this;
-//                    vm.bb = "lalal";
-//                    $scope.zky = function(){
-//                        console.log("haahahhaha");
-//                    }
-//                }
-//
-//                function link($scope,ele,attr,ctrl){
-//                    $scope.b = "气温很高下！";
-//                    ctrl.addChild($scope);
-//                }
-//
-//                return{
-//                    restrict:"E",
-//                    require:"^tsParent",
-//                    link:link,
-//                    scope:{},
-//                    controller:Controller,
-//                    controllerAs:"child",
-//                    bindToController:true
-//                }
-//            })
+            .directive("tsChild",function(){
+
+                Controller.$inject = ["$scope"];
+
+                function Controller($scope){
+                    var vm = this;
+                    vm.bb = "lalal";
+                    $scope.zky = function(){
+                        console.log("haahahhaha");
+                    }
+                }
+
+                function link($scope,ele,attr,ctrl){
+                    $scope.b = "气温很高下！";
+                    ctrl.addChild($scope);
+                }
+
+                return{
+                    restrict:"E",
+                    require:"^tsParent",
+                    require:"^tsParent",
+                    link:link,
+                    scope:{},
+                    controller:Controller,
+                    controllerAs:"child",
+                    bindToController:true
+                }
+            })
             .controller("ctrl",function(){
 
             });
