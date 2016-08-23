@@ -11,7 +11,7 @@
     <script src="../js/angular.js"></script>
 </head>
 <body>
-<div ng-controller="ctrZl">
+<div ng-controller="ctrl">
     <ts-parent>
         <div>{{a}}</div>
 
@@ -50,7 +50,7 @@
                     controller:Controller,
                     controllerAs:"cc",
                     bindToController:true,
-                    template:'<ts-child> <div>{{b}}</div> <div ng-click="zky()">bbb</div> </ts-child>'
+                    template:'<ts-child> <div>{{b}}</div></ts-child>'
 
                 }
             })
@@ -74,12 +74,12 @@
                 return{
                     restrict:"E",
                     require:"^tsParent",
-                    require:"^tsParent",
                     link:link,
                     scope:{},
                     controller:Controller,
                     controllerAs:"child",
-                    bindToController:true
+                    bindToController:true,
+                    template:'<div ng-click="zky()">bbb</div>'
                 }
             })
             .controller("ctrl",function(){
