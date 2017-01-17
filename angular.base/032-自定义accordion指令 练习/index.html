@@ -1,0 +1,30 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../js/bootstrap.css">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="controller">
+		<div class="container">
+			<cup-group>
+				<cup-item ng-repeat="item in data" heading="{{item.title}}">
+					{{item.content}}
+				</cup-item>
+			</cup-group>
+		</div>
+	</div>
+
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

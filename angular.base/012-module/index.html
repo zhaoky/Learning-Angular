@@ -1,0 +1,44 @@
+<!--
+	什么是module
+		大部分应用都有一个主方法（main）来实例化、组织、启动应用。
+		angularJS应用没有主方法，而是使用模块来声明应用应该如何启动。
+		模块允许通过声明的方式来描述应用中的依赖关系，以及如何进行组装和启动。
+	angular的模块
+		模块是组织业务的一个框框，在一个模块当中定义多个服务，当引入了一个模块的时候，就可以使用这个模块提供的一种或多种服务了。
+		angularJS本身的一个默认模块叫做ng，它提供了$http,$scope等服务。
+		服务只是模块提供的多种机制中的一种，其他的还有指令(directive),过滤器(filter)，及其它配置信息。
+		也可以在已有的模块中新定义一个服务，也可以先定义一个模块，然后窄新模块中定义新服务。
+		服务是需要显式的声明依赖（引入）关系，让ng自动注入。
+	module优点
+		启动过程是声明式的，更容易懂。
+		在单元测试是不需要加载全部模块的，因此这种方式有助于写单元测试。
+		可以在特定情况的测试中增加额外的模块，这些模块能更改配置，能帮助进行端对端的测试。
+		第三方代码可以作为可复用的module打包到angular中。
+		模块可以以任何先后或者并行的顺序加载（因为模块的执行本身是延迟的）。
+	定义模块
+		angular.module(name,[,requires],configFn);
+		configFn 会在模块初始化时执行,可以在里面配置模块的服务。
+		configFn @see angular.config()
+	ng-app
+		通过ng-app指定对应的模块应用启动
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="firstController">
+		{{name|filt}}
+	</div>
+	<dd></dd>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

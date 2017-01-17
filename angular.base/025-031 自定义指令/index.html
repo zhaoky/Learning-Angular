@@ -1,0 +1,142 @@
+<!--
+	指令的定义
+		module.directive(name,directiveFactory);
+		@see $compileProvider.directive()
+	指令的名字
+		请不要使用ng为指令命名，这样可能会和angular内置指令冲突
+		如果指令的名字为xxx-yyy在设置指令的名字时应为xxxYyy驼峰式声明法
+	** angularjs 指令编译三阶段
+		1.标准浏览器API转化
+			将html转化成dom，所以自定义的html标签必须符合html的格式
+		2.angular compile
+			搜索匹配directive，按照priority排序，并执行directive上的compile方法
+		3.angular link
+			执行directive上的link方法，进行scope绑定及事件绑定
+	指令定义选项：
+		priority
+			priority:设置指令在模版中的执行顺序，顺序是相对于元素上其他执行而言，默认为0，从大到小的顺序依次执行
+			设置优先级的情况比较少。象ng-repeat，在遍历元素的过程中，需要angular先拷贝生成的模版元素，在应用其他指令，所以ng-repeat默认的priority是1000
+		terminal
+			terminal是否以当前指令的权重为结束界限。如果这值设置为true，则节点中权重小于当前指令的其他指令不会被执行。相同权重的会执行。
+		scope
+			scope:为当前指令创建一个新的作用域，而不是使之继承父作用域
+			false 继承父元素的作用域
+			true  创建一个新的作用域
+			object 独立的scope
+				object：参数
+				&:作用域把父作用域的属性包装成一个函数，从而以函数的方式读写父作用域的属性
+				=:作用域的属性与父作用域的属性进行双向绑定，任何一方的修改均影响到对方
+				@:只能读取父作用域的值单项绑定
+		controller
+			controller 他会暴露一个API。利用这个API可以在多个指令之间通过依赖注入进行通信
+			controller($scope.$element,$attrs,$transclude)
+		controllerAs
+			controllerAs是给controller起个别名，方便使用
+		require
+			require可以将其他指令传递给自己
+				dirName:通过驼峰法的命名指定了控制器应该带着哪一条指令，默认会从同一个元素上的指令
+				^dirName:在父级查找指令
+				?dirName:表示指令是可选的，如果找不到，不需要抛出移除
+		restrict
+			restrict：指令在模版中的使用方式
+			可以4种风格任意组合，如果忽略restrict，默认为A
+			如果打算支持IE8，请使用基于属性和样式类的指令
+				E ：元素  <my-dir></my-dir>
+				C : 类    <span class="my-dir:exp;"></span>
+				A : 属性  <span my-dir="exp"></span>
+				M : 注释  <!-- directive:my-dir exp --
+		template
+			template:模版内容，这个内容会根据replace参数的设置替换节点或只替换节点内容。
+		templateUrl
+			templateUrl:加载模版所要使用的URL (注意：url里最外层必须套有div)
+			可以加载当前模版内对应的text/ng-template script id
+			在使用chrome浏览器时，“同源策略”会阻止chrome从file://中加载模版，并显示一个“Access-Control-Allow-Origin”不允许源为null，可以把项目中放在服务器上加载，或者给chrome设置一个标志，命令为：chrome --allow-file-access-from-access-from-files
+
+		replace
+			replace：如果此配置为true则替换指令所在的元素，如果为false或者不指定，则把当前指令追加到所在的元素内部
+			对于restrict为E，在最终效果中是多余的，所有replace通常设置为true
+
+		transclude
+			transclude:指令元素中的原来的子节点移动到一个新模板内部
+			当为true时，指令会删掉原来的内容，使你的模版可以用ng-transclude指令进行重新插入
+		compile
+			compile:function(tElement,tAttrs,transclude)
+			compile函数用来对模版自身进行转换，仅仅在编译阶段运行一次
+			compile中直接返回的函数是postLink，表示link参数需要执行的函数，也可以返回一个对象里面包含preLink和postLink
+			当定义compile参数时，将无视link参数，因为compile里返回的就是该指令需要执行的link函数
+		link
+			link(scope,iElement,iAttrs,controller)
+			link参数代表的是compile返回的postLink
+			preLink表示在编译阶段之后，指令连接到子元素之前运行
+			postLink表示会在所有子元素指令都连接之后才运行
+			link函数负责在模型和视图之间进行动态关联，对于每个指令的每个实例，link函数都会执行一次
+		为什么编译的过程要要分成compile和link？
+			简单地说就是为了解决性能问题，特别是那种model变化会影响dom结构变化的，而变化的结构还会有新的scope绑定及事件绑定，比如ng-repeat
+		compile和link的使用时机
+			compile
+				想在dom渲染前对它进行变形，并且不需要scope参数
+				想在所有相同directive里共享某些方法，这时应该定义在compile里，性能会比较好
+				返回值就是link的function，这是就是共同使用的时候
+			link
+				对特定的元素注册事件
+				需要用到scope参数来实现dom元素的一些行为
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<!--text/ng-template必须写在app内-->
+	<script type="text/ng-template" id="xxx">
+		<div>angularr {{name}}</div>
+	</script>
+
+	<div ng-controller="controller">
+		<my-dir>1234</my-dir>
+		<my-dir3>原始数据</my-dir3>
+		<!-- directive:my-dir -->
+	</div>
+
+	<div ng-controller="controller2">
+		<my-dir>1234</my-dir>
+		<my-dir2>2222</my-dir2>
+		<!-- directive:my-dir -->
+	</div>
+
+<!--	<div>
+		<ul>
+			&lt;!&ndash;ng-repeat 默认的priority为1000&ndash;&gt;
+			<li ng-repeat="" ng-click=""></li>
+		</ul>
+	</div>-->
+
+
+	<div ng-controller="controller4">
+		<div my-dir4="zky sky" my-dir5></div>
+	</div>
+
+
+	<div ng-controller="controller3">
+		<!--
+			1.div 转换为dom结构
+			2.默认优先级为0，哪个先定义就先使用
+		-->
+		<div my-dir6></div>
+	</div>
+
+	<div ng-controller="controller5">
+		<book-list></book-list>
+	</div>
+
+	<div ng-controller="controller6">
+		<div person-list fff="perList" eee="perList" zzz="{{city}}"></div>
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!--
+	表单
+		一般来讲表单可能遇到的问题
+		1.如果数据绑定
+		2.验证表单
+		3.显示出错信息
+		4.整个Form的验证
+		5.避免提交没有验证通过的表单
+		6.防止多次提交
+	input属性
+		name 名字
+		ng-model 绑定的数据
+		ng-required 是否必填
+		ng-minlength 最小长度
+		ng-maxlength 最大长度
+		ng-pattern 匹配模式
+		ng-change 值变化的回调
+	form控制变量
+		字段是否未更改 ： formName.inputName.$pristine
+		字段是否更改： formName.inputName.$dirty
+		字段有效： formName.inputName.$valid
+		字段无效:  formName.inputName.$invalid
+		字段错误信息：  formName.inputName.$error
+	form方法
+		$setPristine 将表单复原原始状态 ，class $dirty $pristine
+	ng-model
+		ng-model是angular原生的directive
+		可以通过require ngModel 可以更深入的去处理数据的双向绑定
+	ngModel里的属性
+		$parsers属性 保存了从viewValue向modelValue绑定过程中的处理函数，它们将来会依次执行
+		$formatters 它保存的是从modelValue向viewValue绑定过程中的处理函数
+		$setViewValue 当view发生了某件事情的，从view向model绑定调用$setViewValue 把viewValue保存下来
+		$render 当模型发生变化时，应该怎么去更新视图，从model向view绑定，调用ctrl.$render方法，将viewValue渲染到页面上
+		$setValidity 设置验证结果
+		$viewValue 视图的值
+		$modelValue 模型里的值
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../js/bootstrap.css">
+</head>
+<body>
+<div ng-app="myApp">
+	<form ng-controller="controller" class="container form-horizontal" name="myForm" action="1.php" style="margin-top: 100px;">
+		<!--name-->
+		<div class="form-group" ng-class="{'has-error':myForm.name.$invalid&&myForm.name.$dirty}">
+			<label class="col-sm-2 control-label">用户名</label>
+			<div class="col-sm-10">
+				<input type="text" name="name" ng-minlength="5" ng-pattern="/^[a-zA-Z]{1}/" ng-required="true"  ng-maxlength="10" ng-model="data.name" class="form-control" placeholder="名字">
+				data.name:{{data.name}}<br>
+				myForm.name.$error:{{myForm.name.$error}}
+				<div ng-show="myForm.name.$error.maxlength&&myForm.name.$dirty" class="alert alert-danger help-block">用户名长度不能超过10位</div>
+				<div ng-show="myForm.name.$error.minlength&&myForm.name.$dirty" class="alert alert-danger help-block">用户名长度不能小于5位</div>
+				<div ng-show="myForm.name.$error.pattern&&myForm.name.$dirty" class="alert alert-danger help-block">用户名必须以英文字母开始</div>
+				myForm.name.$dirty:{{myForm.name.$dirty}}<br/>
+				myForm.name.$pristine:{{myForm.name.$pristine}}<br/>
+				myForm.name.$valid:{{myForm.name.$valid}}<br/>
+				myForm.name.$invalid:{{myForm.name.$invalid}}<br/>
+				myForm.name.$dirty:{{myForm.name.$dirty}}<br/>
+			</div>
+		</div>
+		<!--password-->
+		<div class="form-group" ng-class="{'has-error':myForm.password.$invalid&&myForm.password.$dirty}">
+			<label class="col-sm-2 control-label">密码</label>
+			<div class="col-sm-10">
+				<input type="password" name="password" ng-minlength="5"  ng-required="true"  ng-maxlength="10" ng-model="data.password" class="form-control" placeholder="密码">
+				{{myForm.password.$error}}
+				<div ng-show="myForm.password.$error.maxlength&&myForm.password.$dirty" class="alert alert-danger help-block">密码长度不能超过10位</div>
+				<div ng-show="myForm.password.$error.minlength&&myForm.password.$dirty" class="alert alert-danger help-block">密码长度不能小于5位</div>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{'has-error':myForm.passwordC.$invalid&&myForm.passwordC.$dirty}">
+			<label class="col-sm-2 control-label">确认密码</label>
+			<div class="col-sm-10">
+				<input type="password" name="passwordC" ng-minlength="5" ng-required="true"  ng-maxlength="10" ng-model="data.passwordC" class="form-control" placeholder="确认密码">
+				{{myForm.passwordC.$error}}
+				<div ng-show="data.password !== data.passwordC && myForm.passwordC.$dirty && myForm.password.$dirty" class="alert alert-danger help-block">密码和确认密码不一致！</div>
+			</div>
+		</div>
+		<!--email-->
+		<div class="form-group" ng-class="{'has-error':myForm.email.$invalid&&myForm.email.$dirty}">
+			<label class="col-sm-2 control-label">邮箱</label>
+			<div class="col-sm-10">
+				<input type="email" name="email" ng-minlength="5"  ng-required="true"  ng-maxlength="20" ng-model="data.email" class="form-control" placeholder="邮箱">
+				{{myForm.email.$error}}
+				<div ng-show="myForm.email.$error.maxlength&&myForm.email.$dirty" class="alert alert-danger help-block">邮箱长度不能超过10位</div>
+				<div ng-show="myForm.email.$error.minlength&&myForm.email.$dirty" class="alert alert-danger help-block">邮箱长度不能小于5位</div>
+				<div ng-show="myForm.email.$error.email&&myForm.email.$dirty" class="alert alert-danger help-block">邮箱格式不正确</div>
+			</div>
+		</div>
+		<!--url-->
+		<div class="form-group" ng-class="{'has-error':myForm.url.$invalid&&myForm.url.$dirty}">
+			<label class="col-sm-2 control-label">博客</label>
+			<div class="col-sm-10">
+				<input type="url" name="url" ng-minlength="5"  ng-required="true"  ng-maxlength="20" ng-model="data.url" class="form-control" placeholder="博客">
+				{{myForm.url.$error}}
+				<div ng-show="myForm.url.$error.maxlength&&myForm.url.$dirty" class="alert alert-danger help-block">博客长度不能超过10位</div>
+				<div ng-show="myForm.url.$error.minlength&&myForm.url.$dirty" class="alert alert-danger help-block">博客长度不能小于5位</div>
+				<div ng-show="myForm.url.$error.url&&myForm.url.$dirty" class="alert alert-danger help-block">博客格式不正确</div>
+			</div>
+		</div>
+		<!--number-->
+		<div class="form-group" ng-class="{'has-error':myForm.age.$invalid&&myForm.age.$dirty}">
+			<label class="col-sm-2 control-label">年龄</label>
+			<div class="col-sm-10">
+				<input type="number" name="age" min="10" max="99" ng-required="true"  ng-model="data.age" class="form-control" placeholder="年龄">
+				{{myForm.age.$error}}
+				<div ng-show="myForm.age.$error.max&&myForm.age.$dirty" class="alert alert-danger help-block">年龄不能大于99岁</div>
+				<div ng-show="myForm.age.$error.min&&myForm.age.$dirty" class="alert alert-danger help-block">年龄不能小于10岁</div>
+			</div>
+		</div>
+		<!--性别-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">性别</label>
+			<div class="col-sm-10">
+				<label class="radio-inline"> <!--必须要有value！！ model 一致！！-->
+					<input type="radio" name="sex" ng-required="true" ng-model="data.sex" value="11"/>男
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sex"  ng-model="data.sex" ng-checked="true" value="22" />女
+				</label>
+			</div>
+		</div>
+		<!--爱好-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">爱好</label>
+			<div class="col-sm-10">
+				<label class="checkbox-inline" ng-repeat="item in hobby"><!--	ng-required="true" 不能用ng-required--><!--注意ng-model不一致！！！-->
+					<input
+							type="checkbox"
+							name="hobby"
+							ng-value="item.name"
+							ng-model ="item.checked"
+							ng-checked="data.hobbies === undefined ? false:data.hobbies.indexOf(item.id) !== -1"
+							ng-click="toggle(item.id)">{{item.name}}{{item.checked}}{{data.hobbies}}
+				</label>
+			</div>
+		</div>
+		<!--出生地-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">出生地</label>
+			<div class="col-sm-3">
+				<select class="form-control" ng-change="data.xian=(data.zheng=undefined)" name="sheng" ng-model="data.sheng" ng-options="x.id as x.name for x in cities | cityFilter:0"></select>{{data.sheng}}<!-- | cityFilter:0-->
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control" ng-show="data.sheng" ng-change="data.zheng=undefined" name="xian" ng-model="data.xian" ng-options="x.id as x.name for x in cities | cityFilter:data.sheng"></select>{{data.xian}}
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control" ng-required="true" ng-show="data.sheng&&data.xian"  name="zheng" ng-model="data.zheng" ng-options="x.id as x.name for x in cities | cityFilter:data.xian"></select>{{data.zheng}}
+			</div>
+		</div>
+		<!--只能输入偶数-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">只能输入偶数</label>
+			<div class="col-sm-9">
+				<input type="number" name="even" class="form-group" placeholder="偶数" ng-model="even" even>
+				<input type="number" name="even" class="form-group" placeholder="偶数" ng-model="even" even>
+				<div ng-show="myForm.even.$error.even" class="alert alert-danger help-block">
+					只能是偶数！！
+				</div>
+			</div>
+		</div>
+		<!--个人介绍-->
+		<div class="form-group">
+			<label class="col-sm-2 control-label">个人介绍</label>
+			<div class="col-sm-9">
+				<custom-text-area ng-model="data.textArea" data="11"></custom-text-area>
+			</div>
+			<div class="col-sm-9">
+				<custom-text-area ng-model="data.textArea" data="11"></custom-text-area>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default" ng-disabled="myForm.$invalid || data.hobbies === undefined ||data.hobbies.length ==0 ">注册{{myForm.$invalid}}</button>
+				<button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+			</div>
+		</div>
+	</form>
+
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

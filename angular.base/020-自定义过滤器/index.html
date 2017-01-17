@@ -1,0 +1,32 @@
+<!--
+	自定义过滤器
+		module.filter(name,filterFactory)
+		@$filterProvider.register();
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../js/bootstrap.css">
+</head>
+<body>
+<div ng-app ="myApp">
+
+	<div  class="container" ng-controller="firstController">
+		<ul>
+			<li ng-repeat="item in data | filterAge:[1,2,3]">
+			{{item.name}}
+			{{item.age}}
+			{{item.city}}
+			</li>
+		</ul>
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

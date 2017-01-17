@@ -1,0 +1,56 @@
+<!--
+	什么是scope：
+		scope是一个指向应用model的object，也是表达式的执行上下文。
+		scope被放置于一个类似应用的DOM结构的层次结构中。
+	$apply：
+		$scope.$apply(expression)
+		$apply()方法可以在angular框架之外执行angular JS的表达式，例如：DOM事件、setTimeout、XHR或其他第三方的库
+	angular是怎么知道变量发生了改变：
+		要知道一个变量变了，方法不外乎两种：
+			1.能通过固定的接口才能改变变量的值，比如说只能通过set()设置变量的值，set被调用时比较一下就知道了。这种方法的缺点就是写法繁琐。
+			2.脏检查。将元对象复制一份快照，在某个时间，比较现在对象与快照的值，如果不一样就表明发生变化，这个策略要保留两份变量，而且要遍历对象，比较每个属性，这样会有一定性能问题。
+	angular的策略
+		angular的实现是使用脏检查。
+		angular的策略：
+			1.不会脏检查所有的对象，当对象被绑定到HTML中，这个对象添加为检查对象（watcher）;
+			2.不会脏检查所有的属性，同样当属性被绑定后，这个属性会被列为检查的属性。
+		在angular程序初始化时，会将绑定的对象的属性添加为监听对象（watcher），也就是说一个对象绑定了N个属性，就会添加N个watcher。
+	什么时候去脏检查
+		angular所系统的方法中都会触发比较事件，比如：controller初始化的时候，所有以ng-开头的时间执行后，都会触发脏检查。
+	手动触发脏检查
+		$apply仅仅只是进入angular context，然后通过$digest去触发脏检查
+		$apply如果不给参数的话，会检查该$scope里的所有监听的属性，推荐给上参数。
+	$digest()
+		触发所属的scope和其所有子scope的脏检查，脏检查又会触发$watch()，整个angular双向绑定机制就活了起来~
+		不建议直接调用$digest()，而应该使用$apply()，$apply其实不能把信使直接送给$digest,之间还有$eval门卫把关，如果$apply带的表达式不合法，$eval会把错误送交$exceptionHandler,合法才触发digest，所以更安全。
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app>
+	<div ng-controller="firstController">
+		{{date}}
+	</div>
+</div>
+<!--<div id = "a">
+	obj.b..
+</div>-->
+<script src="app/index.js"></script>
+<script src="../js/angular.js"></script>
+<script>
+	/*var obj = {
+		b: 300,
+		set: function (key,val) {
+			obj[key] = val;
+			document.querySelector('a').innerHTML=val;
+		}
+	}
+	obj.set('b',300);
+	//每一个属性都要写一个set方法，不断调用来达到更新*/
+</script>
+</body>
+</html>

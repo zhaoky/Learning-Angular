@@ -1,0 +1,31 @@
+<!--
+	constant(name,object)
+		此方法首先运行，可以用它来声明整个应用范围内的常量，并且让它们在所有配置（config方法里）和实例（controller,service等）方法中都可用
+	value
+		value(name,object)
+		如果只想在服务内得到一些内容，可以通过value来申明常量
+	run
+		run(initFn)
+		想要在注入启动之后执行某些操作，而这些操作需要在页面对用户可用之前执行，可以使用此方法
+		比如加载远程的模板，需要在使用前放入缓存，或者在使用操作前判断用户是否登录，未登录可以先去登陆页面
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="controller">
+
+	</div>
+
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

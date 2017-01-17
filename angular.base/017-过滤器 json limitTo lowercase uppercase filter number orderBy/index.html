@@ -1,0 +1,71 @@
+<!--
+	什么是angular过滤器
+		是用于对数据的格式化，或者筛选的函数，可以直接在模版中通过一种语法使用
+		{{expression|filter}}
+		{{expression|filter1|filter2}}
+		{{expression|filter1:param....}}
+	过滤器种类
+		number
+		currency
+		date
+		json
+		limitTo
+		lowercase
+		uppercase
+		filter(string|function|object)
+		number
+		orderBy(string|function|object)
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app ="myApp">
+
+	<div ng-controller="firstController">
+		<!--limitTo 参数 3 代表取前三位-->
+		<p>{{[1,2,3,4,5,6,7,8] | limitTo: 3}}</p>
+		<!--limitTo 参数 -3 代表取后三位-->
+		<p>{{[1,2,3,4,5,6,7,8] | limitTo: -3}}</p>
+		<!--转小写-->
+		<p>{{"Name" | lowercase}}</p>
+		<!--转大写-->
+		<p>{{"Name" | uppercase}}</p>
+		<!--只要字段含有都可以匹配-->
+		<p>
+			{{data.city |filter: "上海"}}
+		</p>
+		<!--只匹配value值-->
+		<p>
+			{{data.city |filter: "name"}}   <!--为空-->
+		</p>
+		<!--对象：只要字段含有都可以匹配-->
+		<p>
+			{{data.city |filter: {py:"g"} }}   <!--为空-->
+		</p>
+		<!--排序：默认正序-->
+		<p>
+			{{data.city | orderBy : 'py'}}
+		</p>
+		<!--排序：反序-->
+		<p>
+			{{data.city | orderBy : '-py'}}
+		</p>
+		<p>
+			{{data.city | json}}
+		</p>
+		<p>
+			{{data.city | filter: checkName}}
+		</p>
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

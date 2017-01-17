@@ -1,0 +1,39 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app>
+	<!-- 控制器也就是js的类，是一个function -->
+	<div ng-controller="firstController">
+		<input type="text" value="" ng-model="name"/>
+		{{name}}
+		<div ng-controller="secondController">
+			//当修改第二个name的时候，第二个name就有值了
+			<input type="text" value="" ng-model="name"/>
+			{{name}}
+		</div>
+	</div>
+	{{name}}
+</div>
+<script src="app/index.js"></script>
+<script src="../js/angular.js"></script>
+<script>
+	//js作用域链
+	(function first() {
+		var name = "sky";
+		function second() {
+			var name = "zky";
+			alert(name);
+		}
+		second();
+	})();
+
+</script>
+</body>
+</html>

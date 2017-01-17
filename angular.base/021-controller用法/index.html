@@ -1,0 +1,38 @@
+<!--
+	正确的使用controller
+		controller不应该尝试做太多的事情，它应该仅仅包含单个视图所需要的业务逻辑。
+		保持controller的简单性，常见办法是抽出那些不属于controller的工作到service中，在controller通过依赖注入来使用这些service。
+		不要在controller中做以下的事情：
+			1.任何类型的DOM操作- controller应该仅仅包含业务逻辑，任何表现逻辑放到controller中，大大地影响了应用逻辑的可测试性。angular为了自动操作（更新）DOM，提供的数据绑定。如果希望执行我们自定义的DOM操作，可以把表现逻辑抽象到directive中。
+			2.Input formatting（输入格式化）-使用angular form controls 代替。
+			3.Output filter （输出格式化过滤） -使用angular filter 代替。
+			4.执行无状态或有状态的、controller共享的代码 - 使用angular service 代替。
+			5.实例化或者管理其他组件的生命周期（例如创建一个服务实例）。
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="controller">
+		<div ng-controller="firstController">
+			{{name}}
+			{{sex}}
+		</div>
+		<div ng-controller="secondController">
+			{{name}}
+			{{sex}}
+		</div>
+	</div>
+
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

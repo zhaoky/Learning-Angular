@@ -1,0 +1,26 @@
+<!--
+	定义服务$provider
+		服务本身是一个任意的对象
+		ng提供服务的过程涉及它的依赖注入机制。
+		angular是用$provide对象来实现自动依赖注入机制，注入机制通过调用一个provider的$get()方法，把得到的对象作为参数进行相关调用。
+		$provide.provider是一种定义服务的方法，$provide还提供了很多很简便的方法，这些简便的方法还直接被module所引用:  $provide.factory,$provide.service
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="firstController">
+		{{name}}
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

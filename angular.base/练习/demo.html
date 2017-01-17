@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../js/angular.js"></script>
+</head>
+<body>
+<script>
+    var name = "zky";
+    var obj ={
+        name:"qxq",
+        age:20,
+        func:function(){
+            console.log(this.name);
+        }
+    };
+    obj.func();
+    obj.func.apply(window);
+    obj.func.apply(this);
+</script>
+</body>
+</html>

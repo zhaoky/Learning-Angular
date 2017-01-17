@@ -1,0 +1,37 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="firstController">
+		<input type="text" ng-model="data.name">
+		<input type="text" ng-model="data.message">
+		<p>
+			first:{{data.name}}
+		</p>
+		<p>
+			firstmessage:{{data.message}}
+		</p>
+	</div>
+	<div ng-controller="secondController">
+		<p>
+			second:{{data.name}}
+		</p>
+		<p>
+			secondmessage:{{data.message}}
+		</p>
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

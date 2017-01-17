@@ -1,0 +1,28 @@
+<!--
+	$provide.factory
+		factory 方法直接把一个函数当成是一个对象的$get方法
+		返回的内容可以是任何类型
+		@see module.factory
+	$provide.service
+		和factory 类似，但返回的东西必须是引用类型（对象，数组）  实例化了一个对象
+		@see module.service
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app="myApp">
+	<div ng-controller="firstController">
+		{{name}}
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

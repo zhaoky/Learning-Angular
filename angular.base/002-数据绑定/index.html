@@ -1,0 +1,35 @@
+<!--
+	ng-app:ng-app指令告诉angular应该管理页面中的哪一块。
+	angular表达式
+		angular表达式 通过$parse服务解析执行。
+		与JavaScript表达式的区别：
+			1.属性求值：所有属性的求值是对于scope的，而JavaScript是对于window对象的。
+			2.宽容：表达式求值，对于undefined和null，angular是宽容的，但JavaScript会产生NullPointerExcepitons =
+			3.没有流程控制语句：在angular表达式里，不能做以下任何的事：条件分支、循环、抛出异常。
+			4.过滤器(filter):我们可以就将表达式的结果传入过滤器链（filter chains）
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body ng-app>
+<!--
+	view层和model层双向绑定
+-->
+<inpt type="text" ng-model="name"/>
+<!--ng表达式-->
+{{100+100}}<br/>
+{{name}}
+
+<input type="text" ng-model="name"/>
+
+<script src="../js/angular.js"></script>
+<script>
+	//js 表达式
+	var string ='alert(1+2)';   //实际上是设置了windows的属性为string
+	eval(string);
+</script>
+</body>
+</html>

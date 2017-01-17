@@ -1,0 +1,60 @@
+<!--
+
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../js/bootstrap.css">
+	<style>
+		.red{
+			color:#f00;
+		}
+	</style>
+</head>
+<body>
+<div ng-app ="myApp">
+
+	<div  class="container" ng-controller="firstController">
+		<form class="navbar-form navbar-left" role="search">
+			<div class="form-group">
+			<!--	<input type="text" class="form-control" placeholder="Search" ng-model="search">-->
+				<input type="text" class="form-control" placeholder="Search" ng-model="search.id">
+			</div>
+		</form>
+		<table class="table">
+			<thead>
+				<tr>
+					<th ng-class={"dropup":asc} ng-click="change('id')">
+						产品编号
+						<span class="caret" ng-class={"red":x=='id'}></span>
+					</th>
+					<th ng-class={"dropup":asc} ng-click="change('name')">
+						产品名称
+						<span class="caret" ng-class={"red":x=='name'}></span>
+					</th>
+					<th ng-class={"dropup":asc} ng-click="change('price')">
+						产品价值
+						<span class="caret" ng-class={"red":x=='price'}></span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+<!--				<tr ng-repeat="item in data | filter:{id:search}">-->
+				<tr ng-repeat="item in data | filter:search | orderBy:(asc?'':'-')+x">
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.price | currency : '(rmb) '}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

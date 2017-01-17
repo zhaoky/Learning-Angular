@@ -1,0 +1,35 @@
+<!--
+	$watch
+		在digest执行时，如果watch观察的value与上次执行时不一样时，就会被触发
+		angularJS内部的watch实现了页面随model的及时更新
+		$watch（watchFn,watchAction,deepWatch）
+			watchFn:angular表达式或函数的字符串
+			watchAction(newValue,oldValue,scope):watchFn发生变化会被调用
+			deepWatch:可选的布尔值命令检查被监听的对象的每个属性是否发生变化
+			$watch会返回一个函数，想要注销这个watch可以使用函数
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app>
+	<div ng-controller="firstController">
+		<input type="text" value="" ng-model="name"/>
+		改变次数{{count}}---{{name}}
+
+		<input type="text" value="" ng-model="data.name"/>
+		<input type="text" value="" ng-model="data.count"/>
+		改变次数{{data.count}}---{{data.name}}
+	</div>
+</div>
+
+<script src="app/index.js"></script>
+<script src="../js/angular.js"></script>
+<script>
+
+</script>
+</body>
+</html>

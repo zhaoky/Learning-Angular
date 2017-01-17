@@ -1,0 +1,78 @@
+<!--
+	什么是angular过滤器
+		是用于对数据的格式化，或者筛选的函数，可以直接在模版中通过一种语法使用
+		{{expression|filter}}
+		{{expression|filter1|filter2}}
+		{{expression|filter1:param....}}
+	过滤器种类
+		number
+		currency
+		date
+		json
+		limitTo
+		lowercase
+		uppercase
+		filter(string|function|object)
+		number
+		orderBy(string|function|object)
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div ng-app ="myApp">
+
+	<div ng-controller="firstController">
+		<p>
+			{{132456789 | number:3}}    <!--参数3是保留3位3小数-->
+		</p>
+		<p>
+			{{132456789 | currency:"rmb"}}   <!--参数改变$符号-->
+		</p>
+		<p>
+			{{today }}
+			<br>
+			medium : {{today | date:"medium"}} <!--参数：medium-->
+			<br>
+			mediumDate : {{today | date:"mediumDate"}} <!--参数：mediumDate-->
+			<br>
+			mediumTime : {{today | date:"mediumTime"}} <!--参数：mediumTime-->
+			<br>
+			short : {{today | date:"short"}} <!--参数：short-->
+			<br>
+			shortDate : {{today | date:"shortDate"}} <!--参数：shortDate-->
+			<br>
+			shortTime : {{today | date:"shortTime"}} <!--参数：shortTime-->
+			<br>
+			fullDate : {{today | date:"fullDate"}} <!--参数：fullDate-->
+			<br>
+			longDate : {{today | date:"longDate"}} <!--参数：longDate-->
+			<br>
+			<hr>
+			year : {{today | date : 'y'}} #### {{today | date : 'yy'}} #### {{today | date : 'yyyy'}}
+			<br>
+			mouth : {{today | date : 'M'}} #### {{today | date : 'MM'}} #### {{today | date : 'MMM'}} #### {{today | date : 'MMMM'}}
+			<br>
+			day : {{today | date : 'd'}} #### {{today | date : 'dd'}} #### {{today | date : 'EEEE'}} #### {{today | date : 'EEE'}}
+			<br>
+			hour : {{today | date : 'h'}} #### {{today | date : 'hh'}} #### {{today | date : 'H'}} #### {{today | date : 'HH'}}
+			<br>
+			minute : {{today | date : 'm'}} #### {{today | date : 'mm'}}
+			<br>
+			second : {{today | date : 's'}} #### {{today | date : 'ss'}} #### {{today | date : 'sss'}} #### {{today | date : '.sss'}}
+		<br>
+		<hr>
+				total : {{today | date: 'y-MM-dd HH:mm:ss'}}
+		</p>
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!--
+	angular js 概念：
+	 1.客户端模板
+	 	angular中，模板和数据都会被发送到浏览器中，然后在客户端进行装配。
+	 2.MVC
+		MVC核心概念：把管理端数据的代码（model）、应用逻辑代码（controller），向用户展示数据的代码（view）清晰的分离开。
+		angularJS应用中：
+			视图就是DOM
+			控制器就是JS类
+			模型数据则被存储在对象的属性中
+	 3.数据绑定（MVVM）
+	 	数据绑定可自动将model和view间的数据同步。
+	 	angular实现数据绑定的方式，可以让我们把model当作程序中唯一可信的数据来源。view始终是model的投影。当model发生变化时，会自动反应到view上面。
+	 		经典模版系统中的数据绑定：
+	 			大多数模版系统中的数据绑定都是单向的
+	 			模版与model合并在一起变成view，如果在合并之后，model发生了变化，不会自动反映到view上。
+	 			用户在view上的交互也不会反映到model中，开发者必须写大量代码不断在view与model之间同步数据。
+	 		angular模版中的数据绑定：
+	 			模版在浏览器中编译的，在编译阶段产生了一个实时更新（live）的视图。
+	 			不论在model或是view上发生了变化，都会立刻反映到对方。
+	 			model成为程序中唯一真实的数据来源，极大的简化了开发者需要处理的编程模型。
+	 4.依赖注入
+	 	依赖注入是一种软件设计模式，用来处理代码的依赖关系。
+	 	angular的依赖注入只是简单的获取它所需要的东西，而不需要创建那些他们所依赖的东西。
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../js/angular.js"></script>
+</head>
+<body ng-app>
+	{{5+5}}
+</body>
+<script>
+
+</script>
+</html>

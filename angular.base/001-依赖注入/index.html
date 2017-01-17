@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<script>
+	var A =function(){
+		this.getName = function(){
+			return 'zky0';
+		}
+	};
+	var a = new A;
+	var B =function(){
+		// B依赖于a
+		document.write(a.getName());
+	};
+
+	//a 注入 b
+	var b = new B(a);    //b是一个对象
+	//1.把a传入到b里面去
+	//2.a是全局变量
+	console.log(b);
+</script>
+</body>
+</html>

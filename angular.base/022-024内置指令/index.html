@@ -1,0 +1,80 @@
+<!--
+	什么是指令
+		可以利用指令来扩展HTML标签，增加声明式语法来实现想做的任何事，可以对应用有特殊意义的元素和属性来替换一般的HTML标签。
+	指令和HTML校验
+		angular内置指令的语法，以ng开始，代表angular命名空间，连接符后面的内容代表指令的名称。
+		指令的语法在很多HTML校验规则中是不合法的，angular提供了多种调用指令方法，可以顺利通过不同校验的规则：
+			1.none ： ng-bind
+			2.XML  :  ng:bind
+			3.HTML5:  data-ng-bind
+			4.XHTML:  x-ng-bind
+		angular也内置了非常多的指令，ng-app、ng-controller
+			包含：
+				1.渲染指令 ng-init ng-bind ng-repeat($index 当前索引，$first 是否为头元素，$middle 是否为非头非尾元素，$last 是否为尾元素) ng-include ng-bind-template
+				2.事件指令 ng-change ng-click ng-dblclick ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup ng-submit  （内置指令在处理完事件后自动实现了脏检查）
+				3.节点指令 ng-style ng-class ng-class-even ng-class-odd ng-show ng-hide ng-switch ng-src ng-href ng-if
+-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.red{
+			color:red;
+		}
+		.yellow{
+			color:#ed9c28;
+		}
+	</style>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="firstController">
+	<div>
+		<span ng-bind="1+5"></span>
+		<span ng-bind-template="{{1+5}}"></span>
+		<span  ng-init="a={age:24,sex:'nan'}" ng-bind="a.age"></span>
+		<ul ng-class="{'red':status}">
+			<li ng-repeat="item in books track by $index" ng-class-even="'red'" ng-class-odd="'yellow'">
+				<span ng-bind="item"></span>
+				<span ng-bind="$index"></span>
+				<span ng-bind="$first"></span>
+				<span ng-bind="$middle"></span>
+				<span ng-bind="$last"></span>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<!--<div ng-include="'other.html'"></div>-->
+		<div ng-include src="'other.html'"></div>
+	</div>
+	<button ng-click="change($event)">切换状态</button>
+	<p ng-bind="status"></p>
+	<div ng-style="{'color':'red','margin-top':'100px'}">flqin</div>
+	<div ng-style="myStyle">flqin</div>
+	<div ng-show="status">啦啦啦</div>
+	<div ng-hide="status">嘿嘿嘿</div>
+	<!--<div ng-switch="status">-->
+	<div ng-switch on="status">
+		<span ng-switch-when="true">显示true</span>
+		<span ng-switch-when="false">显示false</span>
+	</div>
+	<!--当angularJS加载完之后才会把ng-src，ng-href加载进去，类似ng-bind-->
+	<div>
+		<img ng-src="{{src}}" alt="">
+	</div>
+	<!--ngularjs的执行都是在DOM渲染完成之后，如果我们在angularjs执行这个表达式之前点击了链接，那么就直接访问了{{src}}，一般都会跳转到404页面，用户体验太烂了。使用了ngHref就就可以避免出现这种问题。-->
+	<div>
+		<a href="{{src}}"></a>
+	</div>
+	<div ng-if="status">
+		哈哈哈哈哈哈哈哈
+	</div>
+</div>
+<script src="../js/angular.js"></script>
+<script src="app/index.js"></script>
+<script>
+
+</script>
+</body>
+</html>
