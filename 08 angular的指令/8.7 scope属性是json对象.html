@@ -13,8 +13,8 @@
 <body>
 <script type="text/ng-template" id="tpl">
     <div>
-        <span>姓名：{{textName}}</span>
-        <span>年龄：{{textAge}}</span>
+        <span>姓名~：{{textName}}</span>
+        <span>年龄~：{{textAge}}</span>
     </div>
     <button ng-transclude></button>
 </script>
@@ -22,13 +22,14 @@
     <div>姓名: <input type="text" ng-model="text_name" placeholder="请输入姓名"></div>
     <div>年龄: <input type="text" ng-model="text_age" placeholder="请输入年龄"></div>
     <div>{{tip}}</div>
-    <ts-html a-attr="text_name" b-attr="text_age" reset="reSet()">重置</ts-html>
+    <ts-html a-attr="{{text_name}}" b-attr="text_age" c-attr="reSet(name)">重置</ts-html>
 </div>
 <script>
     angular.module("app",[])
             .controller("ctrl",function($scope){
-                $scope.reSet = function(){
+                $scope.reSet = function(name){
                     $scope.tip = "重置成功！";
+                    console.log(name);
                 }
             })
             .directive("tsHtml",function(){
@@ -37,15 +38,15 @@
                     transclude:true,
                     templateUrl:"tpl",
                     scope: {
-                        textName : "=aAttr",
+                        textName : "@aAttr",
                         textAge : "=bAttr",
-                        reDet: "&reset"
+                        reDet: "&cAttr"
                     },
                     link:function(scope,ele,attr){
-                        console.log(3,scope);
-                        ele.bind("click",function(){
+                        var q = ele[0].querySelector('button');
+                        q.addEventListener("click",function(){
                             scope.$apply(function(){
-                                scope.reDet();
+                                scope.reDet({name:"哈哈"});
                                 scope.textName = "zky";
                                 scope.textAge= 24;
                             });

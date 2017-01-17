@@ -22,7 +22,7 @@
 			<span>是否首条</span>
 			<span>是否尾条</span>
 		</li>
-		<li ng-repeat="item in data">
+		<li ng-repeat="item in data |limitTo:2">
 			<span>{{$index+1}}</span>
 			<span>{{item.name}}</span>
 			<span>{{item.sex}}</span>
